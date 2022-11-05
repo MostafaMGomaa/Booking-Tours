@@ -1,8 +1,8 @@
 # Egypt skyway
 
-## Egypt skyway is Booking flights web application
+## Egypt skyway is booking flights web application
 
-### FCI tant graduation project
+### FCI tanta graduation project
 
 ---
 

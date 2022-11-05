@@ -1,6 +1,6 @@
-# ERD: Booky
+# ERD: Egypt-skyway
 
-This document explores the design of Booky web store.
+This document explores the design of Egypt-skyway web app.
 
 We'll use a basic client/server architecture, where a single server is deployed
 on a cloud provider next to a document database, and serving HTTP traffic from
@@ -11,7 +11,7 @@ a public endpoint.
 We 'll use a docment database (mongoDB).
 We 'll host db at mongo atlas.
 
-**Look At** Database relations in [Database digram](/DBD.png)
+**Look At** Database relations in [Database digram](DBD.jpg)
 
 ### Schema
 
@@ -19,6 +19,46 @@ We 'll need at least the following documents to implement
 the Service
 
 **Flights**:
+| Attribute | Type |
+|-----------| ----- |
+| FlightID | monogoID |
+| Slug | String |
+| From_location | String |
+| To_location | String |
+| Duration | Number |
+| Distance | String |
+| Total_Seats | Number |
+| Price | Number |
+
+**User**:
+| Attribute | Type |
+|-----------|------|
+| Name | String|
+| Email | String |
+| Photo | String |
+| Role | String |
+| Password | String|  
+| PasswordConfirm| String|  
+| PasswordChangedAt | Date |
+| PasswordResetToken | String |
+| PasswordResetExpires | Date |
+| Active | Boolean |
+
+**Reviews**:
+| Attribute | Type |
+|---------- |----- |
+|Review| String|
+|Rating| Number|
+|CreatedAt| Date |
+|Flight|FlightID|
+|User|UserObject |
+
+**Ticket**:
+| Attribute | Type |
+|---------- |----- |
+| Flight | FlightID|
+| User | UserID |
+| SeatNum | Num |
 
 ## Server
 
@@ -34,6 +74,65 @@ user can filter data via query string.
 A simple JWT-based auth mechanism is to be used with passwords
 
 ### API
+
+**Auth :**
+
+```
+/signup                 [POST]
+/login                  [POST]
+/signout                [GET]
+/forgotPassword         [POST]
+/resetPassword/:token   [PATCH]
+/updatePassword         [PATCH]
+
+```
+
+**Flight :**
+
+```
+/flights        [GET]
+/flights        [GET]
+/flights/:id    [GET]
+/flights/:id    [PATCH]
+/flights/:id    [DELETE]
+
+```
+
+**Users**:
+
+```
+/users/                     [GET]
+/users/:id                  [GET]
+/users/me                   [GET]
+/users/deleteMe             [DELETE]
+/users/updateMyPassword     [PATCH]
+```
+
+**Reviews**:
+
+```
+/reviews       [GET]
+/reviews       [POST]
+/reviews/:id   [GET]
+
+```
+
+**Reviews on flights**:
+
+```
+/:fligtId/reviews    [Get]
+/:fligtId/reviews    [POST]
+```
+
+**Tickets**:
+
+```
+/tickets        [GET]
+/tickets        [POST]
+/tickets/:id    [GET]
+/tickets/:id    [PATCH]
+/tickets/:id    [DELETE]
+```
 
 ### Error handling
 
