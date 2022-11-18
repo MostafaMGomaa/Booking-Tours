@@ -16,5 +16,5 @@ mongoose.connect(DB).then(() => {
 });
 
 app.listen(3000, () => {
-  console.log(`PORT listen in 3000`);
+  console.log(`Server listen to port 3000`);
 });
