@@ -1,3 +1,25 @@
+const AppError = require('../utils/appError');
+
+const handleDuplicateFieldsErrorDB = (err) => {
+  // Capture the value which duplicate in error msg using Regluar expression.
+  const value = err.errmsg.match(/(["'])(?:(?=(\\?))\2.)*?\1/)[0];
+
+  const message = `Duplicate field value: ${value}. Please use another one`;
+  return new AppError(message, 400);
+};
+
+const handleCastErrorDB = (err) => {
+  const message = `Invaild ${err.path}: ${err.value}`;
+  return new AppError(message, 400);
+};
+
+const handleValidationErrorDB = (err) => {
+  const errors = Object.values(err.errors).map((el) => el.message);
+
+  const mesage = `Invaild Input Data. ${errors.join('. ')}`;
+  return new AppError(mesage, 400);
+};
+
 const sendErrorDev = (err, res) => {
   res.status(err.statusCode).json({
     status: err.status,
@@ -34,6 +56,13 @@ module.exports = (err, req, res, next) => {
   if (process.env.NODE_ENV === 'development') {
     sendErrorDev(err, res);
   } else if (process.env.NODE_ENV === 'production') {
-    sendErrorProd(err, res);
+    // Its not best practice to set fn argument to another fn.
+    let error = { ...err };
+
+    // Invalide DB ids.
+    if (err.name === 'CastError') error = handleCastErrorDB(error);
+    if (err.code === 11000) error = handleDuplicateFieldsErrorDB(error);
+    if ((err.name = 'ValidationError')) error = handleValidationErrorDB(error);
+    sendErrorProd(error, res);
   }
 };
