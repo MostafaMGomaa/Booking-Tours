@@ -1,10 +1,8 @@
 const router = require('express').Router();
 
-// Test router
-router.get('', (req, res) => {
-  res.status(200).json({
-    welcom: 'Hi',
-  });
-});
+const { signup, login } = require('../controllers/authControllers');
+
+router.post('/signup', signup);
+router.post('/login', login);
 
 module.exports = router;
