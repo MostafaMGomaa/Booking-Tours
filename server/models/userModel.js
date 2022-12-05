@@ -73,7 +73,6 @@ userSchema.pre('save', function (next) {
 });
 
 /**
- *
  * @param { User input } candidatePassword
  * @param { Acutally user passoword } userPassword
  * @returns boolean
@@ -84,6 +83,24 @@ userSchema.methods.correctPassword = async (
   userPassword
 ) => {
   return await bcrypt.compare(candidatePassword, userPassword);
+};
+
+/**
+ *
+ * @param {Jwt created Time} JWTTimeStamp
+ * @returns false if password is changed after token was sent.
+ */
+userSchema.methods.changedPasswordAfter = function (JWTTimeStamp) {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10
+    );
+
+    return JWTTimeStamp < changedTimestamp;
+  }
+
+  return false;
 };
 
 const User = mongoose.model('User', userSchema);

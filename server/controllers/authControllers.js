@@ -1,3 +1,4 @@
+const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
@@ -51,4 +52,51 @@ exports.login = catchAsync(async (req, res, next) => {
     status: 'sucess',
     token,
   });
+});
+
+exports.protect = catchAsync(async (req, res, next) => {
+  /**
+   * Token will sent with header called "Authorization" .
+   * Authorization must start with Bearer keyword then token,
+   * e.g. Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpX
+   */
+  // 1) Getting token and check if it exists .
+  let token;
+  if (
+    req.header.Authorization &&
+    req.header.Authorization.startsWith('Bearer')
+  ) {
+    token = req.header.Authorization.spilt(' ')[1];
+  }
+
+  if (!token)
+    return next(
+      new AppError('You are not logged in! Please login for get access', 401)
+    );
+
+  // 2) Verification token
+  /**
+   * We promisfy verify fn beacuase all project deal with promises and to treat fn as async fn.
+   * We can use callback fn with verify BTW.
+   */
+
+  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECERT);
+
+  // 3) Check the use if still exists.
+  const user = await User.findById(decoded.id);
+  if (!user)
+    return next(
+      new AppError('The token beloning to this user does not exists', 401)
+    );
+
+  // 4) Check if user change his password after the token is issused.
+  if (user.changedPasswordAfter(decoded.iat))
+    return next(
+      new AppError('User changed his password! please login again', 401)
+    );
+
+  // Give access to user and sent his data with req obj
+  req.user = user;
+
+  next();
 });
