@@ -101,6 +101,10 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
+/**
+ * @param  {...String users roles which allows to access this endpoint} roles
+ * @returns AppError if user cann't go there.
+ */
 exports.restictTo = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role))
