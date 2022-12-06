@@ -100,3 +100,13 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   next();
 });
+
+exports.restictTo = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role))
+      return next(
+        new AppError(`You can't do this action as ${req.user.role}`, 403)
+      );
+    next();
+  };
+};
