@@ -8,9 +8,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
-    "start:prod": "NODE_ENV=production nodemon server.js",
-    "watch": "node --watch server.js"
+    "start": "node --watch  server.js",
+    "start:prod": "NODE_ENV=production node --watch  server.js "
   },
   "repository": {
     "type": "git",
@@ -25,16 +24,15 @@
   "homepage": "https://github.com/MostafaMGomaa/Booking-flights-web-application#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "crypto": "^1.0.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.7.2",
+    "nodemailer": "^6.8.0",
     "slugify": "^1.6.5",
     "validator": "^13.7.0"
   },
   "devDependencies": {
-    "morgan": "^1.10.0",
-    "nodemon": "^2.0.20"
+    "morgan": "^1.10.0"
   }
 }

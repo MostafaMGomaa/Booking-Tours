@@ -16,8 +16,8 @@ const handleCastErrorDB = (err) => {
 const handleValidationErrorDB = (err) => {
   const errors = Object.values(err.errors).map((el) => el.message);
 
-  const mesage = `Invaild Input Data. ${errors.join('. ')}`;
-  return new AppError(mesage, 400);
+  const message = `Invaild Input Data. ${errors.join('. ')}`;
+  return new AppError(message, 400);
 };
 
 const handleJWTError = (err) =>
