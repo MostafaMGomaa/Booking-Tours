@@ -16,6 +16,13 @@ if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 app.use(express.json());
 
 // Routes
+// Test server
+app.get('healthz', (req, res) => {
+  res.status(200, {
+    status: '✌️',
+  });
+});
+
 app.use('/api/v1/users', userRoutes);
 
 // Error
