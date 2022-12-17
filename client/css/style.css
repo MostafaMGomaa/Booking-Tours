@@ -1,0 +1,24 @@
+h3{
+    text-align: center;
+margin-top: 13%;
+color: #804518;
+font-size: 60x;
+opacity: 100%;
+}
+#header-text{
+    text-align: center;
+    color: #2d2d2d;
+    opacity: 100%;
+    font-size: 17px;
+  font: open sans;
+}
+p{
+    text-align: center;
+    color: #2d2d2d;
+    font-size: 17px;
+}
+.head_icone{
+text-align: center;
+font-family:Arial, Helvetica, sans-serif ;
+color: #804518 ;
+}
