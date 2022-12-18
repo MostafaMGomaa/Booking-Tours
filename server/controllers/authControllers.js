@@ -65,11 +65,12 @@ exports.protect = catchAsync(async (req, res, next) => {
    */
   // 1) Getting token and check if it exists .
   let token;
+
   if (
-    req.header.Authorization &&
-    req.header.Authorization.startsWith('Bearer')
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
   ) {
-    token = req.header.Authorization.spilt(' ')[1];
+    token = req.headers.authorization.split(' ')[1];
   }
 
   if (!token)
@@ -108,7 +109,7 @@ exports.protect = catchAsync(async (req, res, next) => {
  * @param  {...String users roles which allows to access this endpoint} roles
  * @returns AppError if user cann't go there.
  */
-exports.restictTo = (...roles) => {
+exports.restrictTo = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role))
       return next(
