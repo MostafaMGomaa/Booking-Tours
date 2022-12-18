@@ -18,17 +18,29 @@ We 'll host db at mongo atlas.
 We 'll need at least the following documents to implement
 the Service
 
-**Flights**:
+**Tours**:
 | Attribute | Type |
 |-----------| ----- |
-| FlightID | monogoID |
+| Name | String |
 | Slug | String |
-| From_location | String |
-| To_location | String |
-| Duration | Number |
+| FromCountry | String |
+| ToCountry | String |
+| FromCity | String |
+| ToCity | String |
+| FromSite | String |
+| ToSite | String |
+| Description | String |
+| Summary | String |
+| Transportation | String |
+| Ratings Average | Number |
+| Ratings Quantity | Number |
 | Distance | String |
-| Total_Seats | Number |
+| Duration | Number |
+| Total Seats | Number |
+| Available Seats | Number |
 | Price | Number |
+| price Discount | Number |
+| startDates | Date |
 
 **User**:
 | Attribute | Type |
@@ -50,7 +62,7 @@ the Service
 |Review| String|
 |Rating| Number|
 |CreatedAt| Date |
-|Flight|FlightID|
+|Tour|TourID|
 |User|UserObject |
 
 **Ticket**:

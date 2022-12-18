@@ -69,10 +69,10 @@ const tourSchema = new mongoose.Schema({
     type: String,
     trim: true,
     enum: {
-      values: ['Plan', 'Bus', 'Car'],
+      values: ['plane', 'bus', 'car'],
       message: 'invalid input, must be one of [Plan, Bus, Car]',
     },
-    default: 'Plan',
+    default: 'plane',
   },
 });
 
