@@ -68,7 +68,7 @@ the Service
 **Ticket**:
 | Attribute | Type |
 |---------- |----- |
-| Flight | FlightID|
+| Tour | TourID|
 | User | UserID |
 | SeatNum | Num |
 
