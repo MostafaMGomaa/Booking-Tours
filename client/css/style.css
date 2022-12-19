@@ -16,9 +16,14 @@ p{
     text-align: center;
     color: #2d2d2d;
     font-size: 17px;
+    margin-left: 130px; ;
 }
 .head_icone{
 text-align: center;
 font-family:Arial, Helvetica, sans-serif ;
 color: #804518 ;
+}
+.first-one{
+    width: 4rem;
+    margin-left: 130px;
 }
