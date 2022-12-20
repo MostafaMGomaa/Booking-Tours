@@ -39,8 +39,8 @@ the Service
 | Total Seats | Number |
 | Available Seats | Number |
 | Price | Number |
-| price Discount | Number |
-| startDates | Date |
+| Price Discount | Number |
+| Start Dates | Date |
 
 **User**:
 | Attribute | Type |
