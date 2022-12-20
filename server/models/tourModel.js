@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const tourSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -75,6 +76,8 @@ const tourSchema = new mongoose.Schema({
     default: 'plane',
   },
 });
+
+tourSchema.index({ fromCountry: 1, toCountry: 1, price: -1 });
 
 const Tour = mongoose.model('Tour', tourSchema);
 

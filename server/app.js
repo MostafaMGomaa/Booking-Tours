@@ -3,6 +3,10 @@ const morgan = require('morgan');
 const dotenv = require('dotenv');
 
 const userRoutes = require('./routes/userRoutes');
+const tourRoutes = require('./routes/tourRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
+const ticketRoutes = require('./routes/ticketRoutes');
+
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorControllers');
 
@@ -24,6 +28,9 @@ app.get('healthz', (req, res) => {
 });
 
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/tours', tourRoutes);
+app.use('/api/v1/reviews', reviewRoutes);
+app.use('/api/v1/tickets', ticketRoutes);
 
 // Error
 app.all('*', (req, res, next) => {
