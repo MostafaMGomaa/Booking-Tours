@@ -22,7 +22,7 @@ exports.getAll = (Model) =>
 
 exports.getOne = (Model, popOptions) =>
   catchAsync(async (req, res, next) => {
-    let query = await Model.findById(req.params.id).popual;
+    let query = await Model.findById(req.params.id);
     const data = await query.populate(popOptions);
     if (!data) {
       return next(new AppError(`Cannot find any result with this ID`, 404));
