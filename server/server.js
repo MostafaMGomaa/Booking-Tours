@@ -5,6 +5,8 @@ const dotenv = require('dotenv');
 dotenv.config({ path: './config.env' });
 const app = require('./app');
 
+const PORT = process.env.PORT || 3000;
+
 process.on('uncaughtException', (err) => {
   console.log(err.name, err.message);
   console.log(`Uncaught Exception , 💥 Shutting down...`);
@@ -21,7 +23,7 @@ mongoose.connect(DB).then(() => {
   console.log('DB connection successful!');
 });
 
-const server = app.listen(3000, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server listen to port 3000`);
 });
 

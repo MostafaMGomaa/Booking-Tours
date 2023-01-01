@@ -36,6 +36,7 @@ app.use('/api/v1/tickets', ticketRoutes);
 app.all('*', (req, res, next) => {
   next(new AppError(`Cannot find ${req.originalUrl} in server`, 404));
 });
+
 app.use(globalErrorHandler);
 
 module.exports = app;
