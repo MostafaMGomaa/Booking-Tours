@@ -1,6 +1,9 @@
 const express = require('express');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
+const swaggerUi = require('swagger-ui-express');
+// const swaggerDocument = require('./swagger.json');
+const swaggeJsDoc = require('swagger-jsdoc');
 
 const userRoutes = require('./routes/userRoutes');
 const tourRoutes = require('./routes/tourRoutes');
@@ -26,7 +29,28 @@ app.get('healthz', (req, res) => {
     status: '✌️',
   });
 });
+// Setting up swagger.
 
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Booking-Flight API',
+      version: '1.0.0',
+      description: 'Test sweger',
+    },
+    servers: [
+      {
+        url: 'http://127.0.0.1:3000',
+      },
+    ],
+  },
+  apis: ['./routes/*.js'],
+};
+
+const spec = swaggeJsDoc(swaggerOptions);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(spec));
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/tours', tourRoutes);
 app.use('/api/v1/reviews', reviewRoutes);
