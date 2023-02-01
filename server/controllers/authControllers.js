@@ -13,6 +13,30 @@ const signToken = (id) => {
   });
 };
 
+const createSendToken = (user, statusCode, res) => {
+  const token = signToken(user._id);
+  const cookieOptions = {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+    ),
+    htppOnly: true,
+  };
+
+  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+
+  res.cookie('jwt', token, cookieOptions);
+
+  user.password = undefined;
+
+  res.status(statusCode).json({
+    status: 'sucess',
+    token,
+    data: {
+      user,
+    },
+  });
+};
+
 exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
     name: req.body.name,
@@ -24,15 +48,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   // Remove passowrd from output
   newUser.password = undefined;
 
-  const token = signToken(newUser._id);
-
-  res.status(201).json({
-    status: 'sucess',
-    token,
-    data: {
-      newUser,
-    },
-  });
+  createSendToken(newUser, 201, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -48,15 +64,17 @@ exports.login = catchAsync(async (req, res, next) => {
   if (!user || !(await user.correctPassword(password, user.password)))
     return next(new AppError('Icorrect email or password', 401));
 
-  // 3) Send Token to client
-  const token = signToken(user._id);
-
-  res.status(200).json({
-    status: 'sucess',
-    token,
-  });
+  createSendToken(user, 200, res);
 });
 
+exports.logout = (req, res) => {
+  res.cookie('jwt', 'logout', {
+    expires: new Date(Date.now() + 10000),
+
+    htppOnly: true,
+  });
+  res.status(200).json({ status: 'success' });
+};
 exports.protect = catchAsync(async (req, res, next) => {
   /**
    * Token will sent with header called "Authorization" .
@@ -71,6 +89,8 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.headers.authorization.startsWith('Bearer')
   ) {
     token = req.headers.authorization.split(' ')[1];
+  } else if (req.cookies.jwt) {
+    token = req.cookies.jwt;
   }
 
   if (!token)
@@ -99,9 +119,9 @@ exports.protect = catchAsync(async (req, res, next) => {
       new AppError('User changed his password! please login again', 401)
     );
 
-  // Give access to user and sent his data with req obj
+  // Give access to user and sent his data with req obj and locals vars
   req.user = user;
-
+  req.locals.user = user;
   next();
 });
 

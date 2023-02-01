@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const swaggerUi = require('swagger-ui-express');
-// const swaggerDocument = require('./swagger.json');
+const cookieParser = require('cookie-parser');
 const swaggeJsDoc = require('swagger-jsdoc');
 
 const userRoutes = require('./routes/userRoutes');
@@ -21,6 +21,7 @@ dotenv.config({ path: './config.env' });
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
 app.use(express.json());
+app.use(cookieParser());
 
 // Routes
 // Test server

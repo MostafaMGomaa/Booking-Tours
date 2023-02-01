@@ -8,6 +8,7 @@ const {
   resetPassword,
   protect,
   restrictTo,
+  logout,
 } = require('../controllers/authControllers');
 
 const { getAllUsers, getUser } = require('../controllers/userControllers');
@@ -65,10 +66,12 @@ const { getAllUsers, getUser } = require('../controllers/userControllers');
 
 router.post('/signup', signup);
 router.post('/login', login);
+router.get('/logout', logout);
 router.post('/forgotPassword', forgotPassword);
 router.patch('/resetPassword/:token', resetPassword);
 
 router.use(protect);
+
 /**
  * @swagger
  * /api/v1/users/:
@@ -110,6 +113,7 @@ router.route('/').get(restrictTo('admin'), getAllUsers);
  *       404:
  *         description: The user was not found
  */
+
 router.route('/:id').get(getUser);
 
 module.exports = router;

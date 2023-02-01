@@ -9,6 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node --watch  server.js",
+    "dev": "nodemon server.js",
     "start:prod": "NODE_ENV=production node --watch  server.js "
   },
   "repository": {
@@ -37,6 +38,7 @@
     "validator": "^13.7.0"
   },
   "devDependencies": {
+    "cookie-parser": "^1.4.6",
     "find-config": "^1.0.0",
     "morgan": "^1.10.0",
     "random-date-generator": "^1.0.2"
