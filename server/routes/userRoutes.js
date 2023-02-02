@@ -1,6 +1,5 @@
 const router = require('express').Router();
 
-const app = require('../app');
 const {
   signup,
   login,
@@ -9,9 +8,15 @@ const {
   protect,
   restrictTo,
   logout,
+  updatePassword,
 } = require('../controllers/authControllers');
 
-const { getAllUsers, getUser } = require('../controllers/userControllers');
+const {
+  getAllUsers,
+  getUser,
+  getMe,
+  deleteMe,
+} = require('../controllers/userControllers');
 
 /**
  * @swagger
@@ -64,6 +69,7 @@ const { getAllUsers, getUser } = require('../controllers/userControllers');
  *  description: The users manging api including Auth functions
  */
 
+// Auth
 router.post('/signup', signup);
 router.post('/login', login);
 router.get('/logout', logout);
@@ -71,6 +77,7 @@ router.post('/forgotPassword', forgotPassword);
 router.patch('/resetPassword/:token', resetPassword);
 
 router.use(protect);
+router.patch('/updateMyPassword', updatePassword);
 
 /**
  * @swagger
@@ -113,6 +120,8 @@ router.route('/').get(restrictTo('admin'), getAllUsers);
  *       404:
  *         description: The user was not found
  */
+
+router.route('/me').get(getMe, getUser);
 
 router.route('/:id').get(getUser);
 

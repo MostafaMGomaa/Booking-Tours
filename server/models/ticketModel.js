@@ -14,5 +14,12 @@ const ticketSchema = mongoose.Schema({
   seatNum: Number,
 });
 
+ticketSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'tour',
+  });
+  next();
+});
+
 const Ticket = mongoose.model('Ticket', ticketSchema);
 module.exports = Ticket;

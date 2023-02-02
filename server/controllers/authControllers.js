@@ -121,7 +121,8 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   // Give access to user and sent his data with req obj and locals vars
   req.user = user;
-  req.locals.user = user;
+  // res.locals.user = user;
+
   next();
 });
 
@@ -221,4 +222,18 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
     status: 'sucess',
     token,
   });
+});
+
+exports.updatePassword = catchAsync(async (req, res, next) => {
+  console.log(req.user);
+  const user = await User.findById(req.user.id).select('+password');
+
+  if (!(await user.correctPassword(req.body.currentPassword, user.password)))
+    return next(new AppError('Your current password is wrong.', 401));
+
+  user.password = req.body.newPasword;
+  user.passwordConfirm = req.body.newPasswordConfirm;
+  user.save();
+
+  createSendToken(user, 200, res);
 });

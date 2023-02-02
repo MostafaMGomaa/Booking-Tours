@@ -23,14 +23,20 @@ exports.getAll = (Model) =>
 exports.getOne = (Model, popOptions) =>
   catchAsync(async (req, res, next) => {
     let query = await Model.findById(req.params.id);
-    const data = await query.populate(popOptions);
-    if (!data) {
-      return next(new AppError(`Cannot find any result with this ID`, 404));
-    }
+
+    if (popOptions) query = await query.populate(popOptions);
+
+    const doc = await query;
+
+    if (!doc)
+      return next(new AppError(404, `Cannot find any result with this ID`));
+
     // SEND RESPONSE
     res.status(200).json({
       status: 'success',
-      data,
+      data: {
+        doc,
+      },
     });
   });
 
