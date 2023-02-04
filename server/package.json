@@ -27,6 +27,10 @@
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^6.7.0",
+    "helmet": "^6.0.1",
+    "hpp": "^0.2.3",
     "jsonfile": "^6.1.0",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.4",
@@ -35,7 +39,8 @@
     "slugify": "^1.6.5",
     "swagger-jsdoc": "^6.2.7",
     "swagger-ui-express": "^4.6.0",
-    "validator": "^13.7.0"
+    "validator": "^13.7.0",
+    "xss-clean": "^0.1.1"
   },
   "devDependencies": {
     "cookie-parser": "^1.4.6",

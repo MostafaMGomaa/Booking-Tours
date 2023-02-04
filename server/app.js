@@ -1,9 +1,14 @@
 const express = require('express');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
 const swaggerUi = require('swagger-ui-express');
 const cookieParser = require('cookie-parser');
 const swaggeJsDoc = require('swagger-jsdoc');
+const xss = require('xss-clean');
+const dataSanitize = require('express-mongo-sanitize');
+const hpp = require('hpp');
 
 const userRoutes = require('./routes/userRoutes');
 const tourRoutes = require('./routes/tourRoutes');
@@ -20,8 +25,19 @@ dotenv.config({ path: './config.env' });
 // Middlewares
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
-app.use(express.json());
+app.use(helmet());
+app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());
+app.use(
+  rateLimit({
+    max: 100,
+    windowMs: 60 * 60 * 1000,
+  })
+);
+app.use(express.static(`${__dirname}/public`));
+app.use(dataSanitize());
+app.use(xss());
+app.use(hpp());
 
 // Routes
 // Test server
