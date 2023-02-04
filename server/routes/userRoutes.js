@@ -16,6 +16,7 @@ const {
   getUser,
   getMe,
   deleteMe,
+  updateUserData,
 } = require('../controllers/userControllers');
 
 /**
@@ -121,8 +122,10 @@ router.route('/').get(restrictTo('admin'), getAllUsers);
  *         description: The user was not found
  */
 
-router.route('/me').get(getMe, getUser);
+router.route('/me').get(getMe, getUser).delete(deleteMe);
 
 router.route('/:id').get(getUser);
+
+router.patch('/updateUserData', updateUserData);
 
 module.exports = router;

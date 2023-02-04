@@ -120,11 +120,11 @@ userSchema.methods.createPasswordResetToken = function () {
   return resetToken;
 };
 
-// userSchema.virtual('ticket', {
-//   ref: 'Ticket',
-//   foreignField: 'user',
-//   localField: '_id',
-// });
+userSchema.virtual('ticket', {
+  ref: 'Ticket',
+  foreignField: 'user',
+  localField: '_id',
+});
 
 const User = mongoose.model('User', userSchema);
 
