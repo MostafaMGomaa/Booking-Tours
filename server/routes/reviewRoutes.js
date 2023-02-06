@@ -1,19 +1,24 @@
 const router = require('express').Router({ mergeParams: true });
 
 const app = require('../app');
+
 const {
   createOneReview,
   deleteOneReview,
   getAllReviews,
   getOneReview,
   updateOneReview,
+  setTourUserId,
 } = require('../controllers/reviewControllers');
 
 const { restrictTo, protect } = require('../controllers/authControllers');
 
 router.use(protect);
 
-router.route('/').get(getAllReviews).post(restrictTo('user'), createOneReview);
+router
+  .route('/')
+  .get(getAllReviews)
+  .post(restrictTo('user'), setTourUserId, createOneReview);
 
 router
   .route('/:id')

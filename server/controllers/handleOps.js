@@ -5,13 +5,17 @@ const AppError = require('../utils/appError');
 exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
     let filter = {};
+
     if (req.params.tourId) filter = { tour: req.params.tourId };
+
     const features = new APIFeatures(Model.find(filter), req.query)
       .filter()
       .sort()
       .limit()
       .pagnation();
+
     const data = await features.query;
+
     // SEND RESPONSE
     res.status(200).json({
       status: 'success',
@@ -42,6 +46,7 @@ exports.getOne = (Model, popOptions) =>
 
 exports.createOne = (Model) =>
   catchAsync(async (req, res, next) => {
+    console.log(req.body);
     const data = await Model.create(req.body);
 
     // SEND RESPONSE

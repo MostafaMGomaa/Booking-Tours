@@ -122,10 +122,10 @@ router.route('/').get(restrictTo('admin'), getAllUsers);
  *         description: The user was not found
  */
 
+router.use(restrictTo('user'));
+
 router.route('/me').get(getMe, getUser).delete(deleteMe);
-
 router.route('/:id').get(getUser);
-
 router.patch('/updateUserData', updateUserData);
 
 module.exports = router;

@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const router = require('express').Router({ mergeParams: true });
 
 const app = require('../app');
 const {
@@ -16,8 +16,16 @@ router
   .get(getAllTours)
   .post(protect, restrictTo('admin'), createTour);
 
+const reviewRouter = require('./reviewRoutes');
+
+router.use('/:tourId/reviews', reviewRouter);
+
 router.use(protect);
 
-router.route('/:id').get(getTour).patch(updateTour).delete(deleteTour);
+router
+  .route('/:id')
+  .get(getTour)
+  .patch(restrictTo('admin'), updateTour)
+  .delete(restrictTo('admin'), deleteTour);
 
 module.exports = router;
