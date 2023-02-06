@@ -29,7 +29,7 @@ exports.getOne = (Model, popOptions) =>
     const doc = await query;
 
     if (!doc)
-      return next(new AppError(404, `Cannot find any result with this ID`));
+      return next(new AppError(`Cannot find any result with this ID`, 404));
 
     // SEND RESPONSE
     res.status(200).json({
@@ -59,7 +59,7 @@ exports.updateOne = (Model) =>
     });
 
     if (!data)
-      return next(new AppError(404, `Cannot find any result with this ID`));
+      return next(new AppError('Cannot find any result with this ID', 404));
 
     // SEND RESPONSE
     res.status(200).json({
@@ -73,7 +73,8 @@ exports.deleteOne = (Model) =>
     const data = await Model.findByIdAndDelete(req.params.id);
 
     if (!data)
-      return next(new AppError(404, `Cannot find any result with this ID`));
+      return next(new AppError(`Cannot find any result with this ID`, 404));
+
     res.status(204).json({
       status: 'success',
       message: 'tour deleted successfully',
