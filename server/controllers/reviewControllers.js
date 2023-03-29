@@ -14,7 +14,7 @@ exports.setTourUserId = (req, res, next) => {
 };
 
 exports.getAllReviews = getAll(Review);
-exports.getOneReview = getOne(Review, { path: 'users tours', select: '-__v ' });
+exports.getOneReview = getOne(Review, { path: 'user tour', select: '-__v ' });
 exports.createOneReview = createOne(Review);
 exports.updateOneReview = updateOne(Review);
 exports.deleteOneReview = deleteOne(Review);
