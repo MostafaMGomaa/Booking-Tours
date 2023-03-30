@@ -1,0 +1,103 @@
+.mains {
+  background-image: url(../image/flight/background.jpeg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
+}
+.option {
+  width: 90%;
+  margin: auto;
+}
+.option span {
+  margin: 50px 15px 0px 0px;
+  width: 200px;
+  background-color: white;
+  text-align: center;
+  padding: 15px;
+  border-radius: 10px 10px 0px 0px !important;
+  cursor: pointer;
+}
+.parent {
+  border-radius: 0px 10px 10px;
+  -webkit-border-radius: 0px 10px 10px;
+  -moz-border-radius: 0px 10px 10px;
+  -ms-border-radius: 0px 10px 10px;
+  -o-border-radius: 0px 10px 10px;
+  background-color: white;
+  width: 90%;
+  margin: auto;
+}
+.parent2 {
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  background-color: white;
+  width: 90%;
+  margin: auto;
+}
+.dirct img:not(:last-child) {
+  width: 50px !important;
+  height: 30px !important;
+}
+.dirct img:last-child {
+  width: 20px;
+  height: 20px;
+}
+.from {
+  text-align: center;
+  min-height: 120px;
+  border-radius: 15px;
+
+  border: 1.5px rgba(0, 0, 0, 0.456) solid !important;
+}
+.child {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.child:not(:first-child) {
+  border-left: 1.5px rgba(0, 0, 0, 0.456) solid !important;
+}
+.child img {
+  width: 75px;
+  height: 50px;
+}
+.qrcode {
+  width: 50px !important;
+}
+.parent .from div span:last-child:not(.num) {
+  font-size: 10px;
+}
+.city {
+  font-size: 18px;
+  font-weight: bolder;
+}
+@media (max-width: 767px) {
+  .child {
+    justify-content: space-around !important;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+  }
+  .from,
+  .parent {
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+  }
+  .option span {
+    margin: 50px auto 0px;
+  }
+  .parent .from div span:last-child:not(.num) {
+    font-size: 9px;
+  }
+}

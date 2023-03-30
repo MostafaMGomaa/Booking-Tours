@@ -1,0 +1,115 @@
+.mains {
+  background-image: url(../image/flight/background.jpeg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
+}
+.title {
+  width: 90%;
+  margin: auto;
+  color: white;
+}
+.title h2 {
+  padding-top: 35px !important;
+  display: block;
+}
+.parent {
+  background-color: white;
+  width: 100%;
+  margin: auto;
+  padding: 20px;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+}
+.option {
+  border: 1.5px rgba(0, 0, 0, 0.449) solid;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+}
+.plane .child {
+  border: 1.5px black solid;
+  margin: 10px;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+}
+.stop {
+  border-bottom: 1.5px rgba(0, 0, 0, 0.449) solid;
+}
+label {
+  word-break: keep-all;
+}
+.titles {
+  width: 100%;
+  margin: 10px auto;
+  display: block;
+}
+.range {
+  padding: 10px;
+}
+.range div span {
+  font-size: 12px;
+}
+.air {
+  width: 50px;
+  height: 50px;
+}
+.dirct img:not(:last-child) {
+  width: 50px !important;
+  height: 50px !important;
+}
+.dirct img:last-child {
+  width: 20px;
+  height: 20px;
+}
+.plane span {
+  font-size: 13px;
+}
+.plane > div {
+  min-height: 80px;
+}
+.child > div:not(:first-child) {
+  min-height: 80px;
+  border-left: 1.5px rgba(0, 0, 0, 0.449) solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.link {
+  font-size: 13px;
+  color: orangered;
+}
+.bus img {
+  width: 50px;
+  height: 50px;
+}
+.options img {
+  width: 15px;
+  height: 15px;
+}
+@media (max-width: 767px) {
+  .info,
+  .parent,
+  .plane {
+    margin: 5px auto;
+    padding: 0px;
+  }
+  .child > div {
+    border-bottom: 1.5px rgba(0, 0, 0, 0.449) solid;
+  }
+  .dirct img:first-child {
+    display: none;
+  }
+}
