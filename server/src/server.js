@@ -2,8 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
-dotenv.config({ path: './config.env' });
-console.log(__dirname);
+dotenv.config({ path: `${__dirname}/.env` });
 const app = require('./app');
 
 const PORT = process.env.PORT || 3000;
