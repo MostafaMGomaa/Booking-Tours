@@ -24,7 +24,7 @@ mongoose.connect(DB).then(() => {
 });
 
 const server = app.listen(PORT, () => {
-  console.log(`Server listen to port 3000`);
+  console.log(`Server listen to port ${PORT}`);
 });
 
 process.on('unhandledRejection', (err) => {
