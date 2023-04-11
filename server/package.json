@@ -2,7 +2,7 @@
   "name": "booking-flights-web-application",
   "version": "1.0.0",
   "description": "## Egypt skyway is booking flights web application",
-  "main": "app.js",
+  "main": "./src/server.js",
   "directories": {
     "doc": "docs"
   },
@@ -15,8 +15,12 @@
     "type": "git",
     "url": "git+https://github.com/MostafaMGomaa/Booking-flights-web-application.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "Booking-flights-web-app",
+    "node",
+    "express"
+  ],
+  "author": "Mostafa Gomaa",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/MostafaMGomaa/Booking-flights-web-application/issues"
