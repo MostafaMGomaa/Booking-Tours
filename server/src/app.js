@@ -20,7 +20,7 @@ const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorControllers');
 
 const app = express();
-dotenv.config({ path: './config.env' });
+dotenv.config({ path: `${__dirname}/.env` });
 
 // Middlewares
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
