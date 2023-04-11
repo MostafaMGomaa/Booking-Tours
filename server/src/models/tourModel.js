@@ -5,7 +5,6 @@ const tourSchema = new mongoose.Schema(
     name: {
       type: String,
     },
-    slug: String,
     fromCountry: {
       type: String,
       required: [true, 'the tour must have from country property'],

@@ -46,7 +46,6 @@ exports.getOne = (Model, popOptions) =>
 
 exports.createOne = (Model) =>
   catchAsync(async (req, res, next) => {
-    console.log(req.body);
     const data = await Model.create(req.body);
 
     // SEND RESPONSE
