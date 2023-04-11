@@ -1,3 +1,4 @@
+const { getCheckoutSession } = require('./../controllers/checkoutController');
 const router = require('express').Router({ mergeParams: true });
 
 const app = require('../app');
@@ -21,6 +22,7 @@ const reviewRouter = require('./reviewRoutes');
 router.use('/:tourId/reviews', reviewRouter);
 
 router.use(protect);
+router.get('/checkout-session/:tourId', getCheckoutSession);
 
 router
   .route('/:id')

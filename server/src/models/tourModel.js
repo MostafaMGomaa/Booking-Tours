@@ -5,6 +5,7 @@ const tourSchema = new mongoose.Schema(
     name: {
       type: String,
     },
+    slug: String,
     fromCountry: {
       type: String,
       required: [true, 'the tour must have from country property'],
@@ -66,6 +67,7 @@ const tourSchema = new mongoose.Schema(
         },
         message: 'discount price must be less than price',
       },
+      default: 0,
     },
     transportation: {
       type: String,
