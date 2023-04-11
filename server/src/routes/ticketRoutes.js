@@ -8,6 +8,7 @@ const {
   getOneTicket,
   updateOneTicket,
 } = require('../controllers/ticketControllers');
+const { getCheckoutSession } = require('./../controllers/checkoutController');
 
 router.route('/').get(getAllTicket).post(createOneTicket);
 
@@ -16,5 +17,7 @@ router
   .get(getOneTicket)
   .patch(updateOneTicket)
   .delete(deleteOneTicket);
+
+router.get('/checkout-session/:tourId', getCheckoutSession);
 
 module.exports = router;
