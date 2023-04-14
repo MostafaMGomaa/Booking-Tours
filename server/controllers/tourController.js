@@ -6,7 +6,7 @@ const {
   createOne,
   updateOne,
   deleteOne,
-} = require('./handleOps');
+} = require('controllers/handleOps');
 
 exports.getAllTours = getAll(Tour);
 exports.getTour = getOne(Tour, { path: 'reviews', select: '-__v ' });

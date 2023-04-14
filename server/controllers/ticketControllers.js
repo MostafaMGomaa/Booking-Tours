@@ -5,7 +5,7 @@ const {
   createOne,
   updateOne,
   deleteOne,
-} = require('./handleOps');
+} = require('controllers/handleOps');
 
 exports.getAllTicket = getAll(Ticket);
 exports.getOneTicket = getOne(Ticket);
