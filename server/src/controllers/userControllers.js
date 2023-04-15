@@ -8,7 +8,7 @@ const {
   createOne,
   updateOne,
   deleteOne,
-} = require('controllers/handleOps');
+} = require('./handleOps');
 
 exports.getAllUsers = getAll(User);
 

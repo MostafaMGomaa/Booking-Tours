@@ -47,6 +47,10 @@ app.get('healthz', (req, res) => {
     status: '✌️',
   });
 });
+
+app.get('hi', (req, res) => {
+  res.send('5');
+});
 // Setting up swagger.
 
 const swaggerOptions = {

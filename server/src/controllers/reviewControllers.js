@@ -5,7 +5,7 @@ const {
   createOne,
   updateOne,
   deleteOne,
-} = require('controllers/handleOps');
+} = require('./handleOps');
 
 exports.setTourUserId = (req, res, next) => {
   if (!req.body.tour) req.body.tour = req.params.tourId;

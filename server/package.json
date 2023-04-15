@@ -2,7 +2,7 @@
   "name": "booking-flights-web-application",
   "version": "1.0.0",
   "description": "## Egypt skyway is booking flights web application",
-  "main": "./src/server.js",
+  "main": "server.js",
   "directories": {
     "doc": "docs"
   },
@@ -45,6 +45,7 @@
     "stripe": "^12.0.0",
     "swagger-jsdoc": "^6.2.7",
     "swagger-ui-express": "^4.6.0",
+    "twilio": "^4.10.0",
     "validator": "^13.7.0",
     "xss-clean": "^0.1.1"
   },
