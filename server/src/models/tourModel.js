@@ -53,12 +53,15 @@ const tourSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    takeOff: Date,
+    takeOff: {
+      type: Date,
+      default: new Date(Date.now()),
+    },
     duration: {
       type: Number,
       required: [true, 'Tour must have duration time'],
     },
-    endDates: {
+    endDate: {
       type: Date,
       // require: ['true', 'Tour must have end date'],
     },
@@ -95,30 +98,31 @@ const tourSchema = new mongoose.Schema(
         values: ['oneWay', 'return'],
         message: 'Tour must be oneWay or return',
       },
-      baggage: {
-        type: Number,
-        validate: {
-          validator: function (val) {
-            return val <= 32;
-          },
-          message: 'Baggage cannot exceed 32 kg per piece',
+    },
+    baggage: {
+      type: Number,
+      validate: {
+        validator: function (val) {
+          return val <= 32;
         },
+        message: 'Baggage cannot exceed 32 kg per piece',
       },
-      class: {
-        type: String,
-        enum: {
-          values: [],
-          message: '',
+    },
+    class: {
+      type: String,
+      enum: {
+        values: [],
+        message: '',
+      },
+      validate: {
+        validator: function (val) {
+          return val <= 32;
         },
-        validate: {
-          validator: function (val) {
-            return val <= 32;
-          },
-          message: 'Baggage cannot exceed 32 kg per piece',
-        },
+        message: 'Baggage cannot exceed 32 kg per piece',
       },
     },
   },
+
   {
     toJSON: { virtuals: true },
     toObject: { virtuals: true },

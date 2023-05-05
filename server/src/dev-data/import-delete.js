@@ -72,14 +72,11 @@ const file = jsonfile
  * GENERATE A RANDOM PRICE BETWEEN 500$-1000$
  * CURRENT DATE AND TIME
  * PUSH THIS FLIGHT TO THE FLIGHTS ARRAY
+ * WRITE FLIGHTS INTO TOURS.JSON
  */
 
-const randomPlus3 = new Date(
-  randomDate().setMonth(randomDate().getMonth() + 2)
-);
-const startDate = randomDate();
-
 const generateFlights = () => {
+  const startDate = randomDate();
   const flights = [];
 
   data.forEach((from, idx) => {
@@ -100,7 +97,7 @@ const generateFlights = () => {
       type: ['oneWay', 'return'][
         Math.floor(Math.random() * ['oneWay', 'return'].length)
       ],
-      takeOff: randomDate(),
+      takeOff: startDate,
       endDate:
         this.type === 'return'
           ? random_date.getRandomDateInRange(
@@ -124,9 +121,9 @@ const generateFlights = () => {
   return flights;
 };
 
-generateFlights();
+// fs.writeFileSync('tours.json', JSON.stringify(generateFlights()));
 
-// Read data from file.
+// Read data from tours.json.
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'));
 
 const importDataToDB = async () => {
