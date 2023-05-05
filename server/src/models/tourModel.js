@@ -53,10 +53,22 @@ const tourSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    startDates: [Date],
+    takeOff: Date,
     duration: {
       type: Number,
-      required: [true, 'must add tour duration time'],
+      required: [true, 'Tour must have duration time'],
+    },
+    endDates: {
+      type: Date,
+      // require: ['true', 'Tour must have end date'],
+    },
+    totalTickets: {
+      type: Number,
+      default: 90,
+    },
+    availableTicket: {
+      type: Number,
+      default: 90,
     },
     priceDiscount: {
       type: Number,
@@ -73,9 +85,38 @@ const tourSchema = new mongoose.Schema(
       trim: true,
       enum: {
         values: ['plane', 'bus', 'car'],
-        message: 'invalid input, must be one of [Plan, Bus, Car]',
+        message: 'invalid input, must be one of [plane, bus, car]',
       },
       default: 'plane',
+    },
+    type: {
+      type: String,
+      enum: {
+        values: ['oneWay', 'return'],
+        message: 'Tour must be oneWay or return',
+      },
+      baggage: {
+        type: Number,
+        validate: {
+          validator: function (val) {
+            return val <= 32;
+          },
+          message: 'Baggage cannot exceed 32 kg per piece',
+        },
+      },
+      class: {
+        type: String,
+        enum: {
+          values: [],
+          message: '',
+        },
+        validate: {
+          validator: function (val) {
+            return val <= 32;
+          },
+          message: 'Baggage cannot exceed 32 kg per piece',
+        },
+      },
     },
   },
   {

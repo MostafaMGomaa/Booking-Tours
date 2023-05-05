@@ -8,8 +8,7 @@ const fs = require('fs');
 
 const Tour = require('../models/tourModel');
 
-dotenv.config({ path: require('find-config')('config.env') });
-
+dotenv.config({ path: `${__dirname}/../.env` });
 let DB = '';
 if (process.env.LOCAL) {
   DB = process.env.DATABASE_LOCAL;
@@ -19,12 +18,6 @@ if (process.env.LOCAL) {
     process.env.DATABASE_PASSWORD
   );
 }
-console.log(DB);
-
-// const DB = process.env.DATABASE.replace(
-//   '<password>',
-//   process.env.DATABASE_PASSWORD
-// );
 
 mongoose.connect(DB).then(() => console.log('Connected Successfully'));
 
@@ -81,6 +74,11 @@ const file = jsonfile
  * PUSH THIS FLIGHT TO THE FLIGHTS ARRAY
  */
 
+const randomPlus3 = new Date(
+  randomDate().setMonth(randomDate().getMonth() + 2)
+);
+const startDate = randomDate();
+
 const generateFlights = () => {
   const flights = [];
 
@@ -92,14 +90,24 @@ const generateFlights = () => {
       fromCountry: from.country,
       fromCity: from.city || from.country,
       fromSite: from.name || from.city,
-      toCountry: to.country,
+      toCountry: 'Egypt',
       toCity: to.city || to.country,
       toSite: to.name || to.city,
       name: `a Tour from ${from.city || from.country} to ${
         to.city || to.country
       }`,
       price: Math.trunc(Math.random() * 1001),
-      startDates: [randomDate(), randomDate(), randomDate()],
+      type: ['oneWay', 'return'][
+        Math.floor(Math.random() * ['oneWay', 'return'].length)
+      ],
+      takeOff: randomDate(),
+      endDate:
+        this.type === 'return'
+          ? random_date.getRandomDateInRange(
+              startDate,
+              new Date(startDate.setMonth(startDate.getMonth() + 2))
+            )
+          : startDate,
       duration: Math.trunc(Math.random() * 21) + 1,
       description: `a fantastic Tour start in '${moment(randomDate()).format(
         'MMMM Do YYYY'
@@ -109,11 +117,14 @@ const generateFlights = () => {
       summary: `a Tour from ${from.city || from.country} to ${
         to.city || to.country
       }`,
+      baggage: Math.floor(Math.random() * 32) + 1,
     };
     flights.push(flight);
   });
   return flights;
 };
+
+generateFlights();
 
 // Read data from file.
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'));

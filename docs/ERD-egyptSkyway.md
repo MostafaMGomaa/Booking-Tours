@@ -41,6 +41,11 @@ the Service
 | Price | Number |
 | Price Discount | Number |
 | Start Dates | Date |
+| Total Tickets | Number |
+| Available Ticket | Number |
+| Type | String |
+| Baggage | Number |
+| Class | String |
 
 **User**:
 | Attribute | Type |
