@@ -12,6 +12,7 @@ const {
 } = require('../controllers/authControllers');
 
 const {
+  deleteAll,
   getAllUsers,
   getUser,
   getMe,
@@ -71,6 +72,10 @@ const {
  */
 
 // Auth
+// !TODO: DELTE THIS BEFORE DEPLOY
+// FOR DEV ONLY
+router.delete('/all', deleteAll);
+
 router.post('/signup', signup);
 router.post('/login', login);
 router.get('/logout', logout);

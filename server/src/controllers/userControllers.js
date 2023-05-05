@@ -12,6 +12,13 @@ const {
 
 exports.getAllUsers = getAll(User);
 
+exports.deleteAll = catchAsync(async (req, res) => {
+  await User.deleteMany();
+  res.status(204).send({
+    status: 'success',
+  });
+});
+
 exports.getMe = (req, res, next) => {
   req.params.id = req.user.id;
   next();
