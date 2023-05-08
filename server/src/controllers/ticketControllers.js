@@ -13,7 +13,21 @@ const {
 exports.getAllTicket = getAll(Ticket);
 exports.getOneTicket = getOne(Ticket);
 exports.updateOneTicket = updateOne(Ticket);
-exports.deleteOneTicket = deleteOne(Ticket);
+exports.deleteOneTicket = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+
+  // Find the ticket, tour
+  const ticket = await Ticket.findByIdAndDelete(id);
+  const tour = await Tour.findById(ticket.tour);
+
+  // Add numOfTicket  booked to tour again.
+  tour.availableTicket += ticket.numOfTickets;
+  await tour.save();
+
+  // Delete the ticket
+  res.status(204).json({ status: 'success' });
+});
+
 exports.createOneTicket = catchAsync(async (req, res, next) => {
   // Extract data from body,  get userID from req.user.
   let { user, tour, numOfTickets } = req.body;

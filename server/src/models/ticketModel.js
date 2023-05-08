@@ -1,23 +1,29 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
 
-const ticketSchema = mongoose.Schema({
-  tour: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'Tour',
-    required: [true, 'Ticket must belong to a tour.'],
+const ticketSchema = mongoose.Schema(
+  {
+    tour: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Tour',
+      required: [true, 'Ticket must belong to a tour.'],
+    },
+    user: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
+      required: [true, 'Ticket must belong to a user'],
+    },
+    seatNum: [String],
+    numOfTickets: {
+      type: Number,
+      default: 1,
+    },
   },
-  user: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'User',
-    required: [true, 'Ticket must belong to a user'],
-  },
-  seatNum: [String],
-  numOfTickets: {
-    type: Number,
-    default: 1,
-  },
-});
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
+);
 
 // ticketSchema.pre(/^find/, function (next) {
 //   this.populate({
