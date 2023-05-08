@@ -137,7 +137,6 @@ const generateFlights = () => {
   });
   return flights;
 };
-// console.log(generateFlights());
 fs.writeFileSync(
   `${__dirname}/tours.json`,
   JSON.stringify(generateFlights()),
@@ -145,7 +144,7 @@ fs.writeFileSync(
 );
 // generateFlights();
 // Read data from tours.json.
-// const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'));
+const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'));
 
 const importDataToDB = async () => {
   try {
