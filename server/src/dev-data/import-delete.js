@@ -30,6 +30,32 @@ const randomDate = () => {
   return random_date.getRandomDateInRange(startDate, endDate);
 };
 
+/*****
+ * Egypt Airports with cities
+ */
+
+const egypt_airports = [
+  { airport: 'Cairo International Airport', city: 'Cairo' },
+  { airport: 'Hurghada International Airport', city: 'Hurghada' },
+  { airport: 'Sharm El-Sheikh International Airport', city: 'Sharm El-Sheikh' },
+  { airport: 'Luxor International Airport', city: 'Luxor' },
+  { airport: 'Alexandria International Airport', city: 'Alexandria' },
+  { airport: 'Marsa Alam International Airport', city: 'Marsa Alam' },
+  { airport: 'Aswan International Airport', city: 'Aswan' },
+  { airport: 'Mersa Matruh Airport', city: 'Mersa Matruh' },
+  { airport: 'Taba International Airport', city: 'Taba' },
+  { airport: 'Assiut Airport', city: 'Assiut' },
+  { airport: 'Sohag International Airport', city: 'Sohag' },
+  { airport: 'Abu Simbel Airport', city: 'Abu Simbel' },
+  { airport: 'Marsa Matruh Airport', city: 'Marsa Matruh' },
+  { airport: 'Dakhla Oasis Airport', city: 'Dakhla Oasis' },
+];
+
+const getRandomAirport = () => {
+  const randomIndex = Math.floor(Math.random() * egypt_airports.length);
+  return egypt_airports[randomIndex];
+};
+
 /***
  * COUNTERIES THAT OUR PROJECT SUPPORT
  * ADD MORE COUNTRIES IF NEEDED
@@ -79,31 +105,24 @@ const generateFlights = () => {
   const flights = [];
 
   data.forEach((from, idx) => {
-    let toIdx = Math.trunc(Math.random() * data.length);
-    const tourType = ['oneWay', 'return'][Math.floor(Math.random() * 2)];
+    const to = getRandomAirport();
+    const tourType = ['return', 'return'][Math.floor(Math.random() * 2)];
     const startDate = randomDate();
 
-    while (idx === toIdx) toIdx = Math.trunc(Math.random() * data.length);
-    const to = data[toIdx];
     const flight = {
       fromCountry: from.country,
       fromCity: from.city || from.country,
       fromSite: from.name || from.city,
       toCountry: 'Egypt',
-      toCity: to.city || to.country,
-      toSite: to.name || to.city,
-      name: `a Tour from ${from.city || from.country} to ${
-        to.city || to.country
-      }`,
+      toCity: to.city,
+      toSite: to.airport,
+      name: `a Tour from ${from.city || from.country} to ${to.city}`,
       price: Math.trunc(Math.random() * 500) + 500,
       type: tourType,
       takeOff: startDate,
       endDate:
         tourType === 'return'
-          ? random_date.getRandomDateInRange(
-              startDate,
-              new Date(startDate.setMonth(startDate.getMonth() + 2))
-            )
+          ? new Date(moment(startDate).add(3, 'M'))
           : startDate,
       duration: Math.trunc(Math.random() * 21) + 1,
       description: `a fantastic Tour start in '${moment(randomDate()).format(
@@ -111,21 +130,22 @@ const generateFlights = () => {
       )}' and take about '${
         Math.trunc(Math.random() * 21) + 1
       }hrs', to enjoy in ${to.city} `,
-      summary: `a Tour from ${from.city || from.country} to ${
-        to.city || to.country
-      }`,
+      summary: `a Tour from ${from.city || from.country} to ${to.city}`,
       baggage: [30, 23][Math.floor(Math.random() * 2)],
     };
     flights.push(flight);
   });
-
   return flights;
 };
-
-fs.writeFileSync('tours.json', JSON.stringify(generateFlights()));
+// console.log(generateFlights());
+fs.writeFileSync(
+  `${__dirname}/tours.json`,
+  JSON.stringify(generateFlights()),
+  'utf-8'
+);
 // generateFlights();
 // Read data from tours.json.
-const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'));
+// const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'));
 
 const importDataToDB = async () => {
   try {
