@@ -1,14 +1,19 @@
 const router = require('express').Router();
 
-const app = require('../app');
 const {
   createOneTicket,
   deleteOneTicket,
   getAllTicket,
   getOneTicket,
   updateOneTicket,
+  deleteAll,
 } = require('../controllers/ticketControllers');
 const { getCheckoutSession } = require('./../controllers/checkoutController');
+
+const { protect } = require('../controllers/authControllers');
+
+router.use(protect);
+router.delete('/deleteAll', deleteAll);
 
 router.route('/').get(getAllTicket).post(createOneTicket);
 

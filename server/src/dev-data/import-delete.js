@@ -76,11 +76,13 @@ const file = jsonfile
  */
 
 const generateFlights = () => {
-  const startDate = randomDate();
   const flights = [];
 
   data.forEach((from, idx) => {
     let toIdx = Math.trunc(Math.random() * data.length);
+    const tourType = ['oneWay', 'return'][Math.floor(Math.random() * 2)];
+    const startDate = randomDate();
+
     while (idx === toIdx) toIdx = Math.trunc(Math.random() * data.length);
     const to = data[toIdx];
     const flight = {
@@ -93,13 +95,11 @@ const generateFlights = () => {
       name: `a Tour from ${from.city || from.country} to ${
         to.city || to.country
       }`,
-      price: Math.trunc(Math.random() * 1001),
-      type: ['oneWay', 'return'][
-        Math.floor(Math.random() * ['oneWay', 'return'].length)
-      ],
+      price: Math.trunc(Math.random() * 500) + 500,
+      type: tourType,
       takeOff: startDate,
       endDate:
-        this.type === 'return'
+        tourType === 'return'
           ? random_date.getRandomDateInRange(
               startDate,
               new Date(startDate.setMonth(startDate.getMonth() + 2))
@@ -110,19 +110,20 @@ const generateFlights = () => {
         'MMMM Do YYYY'
       )}' and take about '${
         Math.trunc(Math.random() * 21) + 1
-      }hrs', to enjoy in ${to.city} }`,
+      }hrs', to enjoy in ${to.city} `,
       summary: `a Tour from ${from.city || from.country} to ${
         to.city || to.country
       }`,
-      baggage: Math.floor(Math.random() * 32) + 1,
+      baggage: [30, 23][Math.floor(Math.random() * 2)],
     };
     flights.push(flight);
   });
+
   return flights;
 };
 
-// fs.writeFileSync('tours.json', JSON.stringify(generateFlights()));
-
+fs.writeFileSync('tours.json', JSON.stringify(generateFlights()));
+// generateFlights();
 // Read data from tours.json.
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'));
 
