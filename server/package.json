@@ -2,7 +2,7 @@
   "name": "booking-flights-web-application",
   "version": "1.0.0",
   "description": "## Egypt skyway is booking flights web application",
-  "main": "./src/server.js",
+  "main": "src/server.js",
   "directories": {
     "doc": "docs"
   },
