@@ -40,6 +40,11 @@ app.use(dataSanitize());
 app.use(xss());
 app.use(hpp());
 
+app.use((req, res, next) => {
+  res.header({ 'Access-Control-Allow-Credentials': true });
+  next();
+});
+
 // Routes
 // Test server
 app.get('healthz', (req, res) => {
