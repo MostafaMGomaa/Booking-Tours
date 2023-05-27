@@ -20,6 +20,7 @@ const {
   updateUserData,
 } = require('../controllers/userControllers');
 
+const { s3Uploadv2, upload } = require('../controllers/imageController');
 /**
  * @swagger
  * components:
@@ -72,6 +73,7 @@ const {
  */
 
 // Auth
+
 // !TODO: DELTE THIS BEFORE DEPLOY
 // FOR DEV ONLY
 router.delete('/all', deleteAll);
@@ -83,6 +85,17 @@ router.post('/forgotPassword', forgotPassword);
 router.patch('/resetPassword/:token', resetPassword);
 
 router.use(protect);
+
+router.post('/upload', upload.array('file'), async (req, res) => {
+  try {
+    const results = await s3Uploadv2(req.user.name, req.files[0]);
+    console.log(results);
+    return res.json({ status: 'success', results });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 router.patch('/updateMyPassword', updatePassword);
 
 /**
@@ -132,5 +145,26 @@ router.use(restrictTo('user'));
 router.route('/me').get(getMe, getUser).delete(deleteMe);
 router.route('/:id').get(getUser);
 router.patch('/updateUserData', updateUserData);
+
+// router.put(
+//   '/:userId/profile-image',
+//   uploadImage.single('image'), // our uploadImage middleware
+//   (req, res, next) => {
+//     /*
+//          req.file = {
+//            fieldname, originalname,
+//            mimetype, size, bucket, key, location
+//          }
+//       */
+
+//     // location key in req.file holds the s3 url for the image
+//     let data = {};
+//     if (req.file) {
+//       data.image = req.file.location;
+//     }
+
+//     // HERE IS YOUR LOGIC TO UPDATE THE DATA IN DATABASE
+//   }
+// );
 
 module.exports = router;

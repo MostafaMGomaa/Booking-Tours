@@ -22,12 +22,12 @@ class APIFeatures {
   }
 
   sort() {
-    /* if no sort in query string tours 'll sorted by defualt by publishedDate */
+    /* if no sort in query string tours 'll sorted by defualt by takeOff */
     if (this.queryString.sort) {
       const sortBy = this.queryString.sort.split(',').join(' ');
       this.query = this.query.sort(sortBy);
     } else {
-      this.query = this.query.sort('-publishedDate');
+      this.query = this.query.sort('-takeOff');
     }
     return this;
   }

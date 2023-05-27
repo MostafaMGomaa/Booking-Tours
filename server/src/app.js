@@ -10,6 +10,7 @@ const xss = require('xss-clean');
 const dataSanitize = require('express-mongo-sanitize');
 const hpp = require('hpp');
 const cors = require('cors');
+const multer = require('multer');
 
 const userRoutes = require('./routes/userRoutes');
 const tourRoutes = require('./routes/tourRoutes');
@@ -84,6 +85,29 @@ app.use('/api/v1/reviews', reviewRoutes);
 app.use('/api/v1/tickets', ticketRoutes);
 
 // Error
+
+app.use((error, req, res, next) => {
+  if (error instanceof multer.MulterError) {
+    if (error.code === 'LIMIT_FILE_SIZE') {
+      return res.status(400).json({
+        message: 'file is too large',
+      });
+    }
+
+    if (error.code === 'LIMIT_FILE_COUNT') {
+      return res.status(400).json({
+        message: 'File limit reached',
+      });
+    }
+
+    if (error.code === 'LIMIT_UNEXPECTED_FILE') {
+      return res.status(400).json({
+        message: 'File must be an image',
+      });
+    }
+  }
+});
+
 app.all('*', (req, res, next) => {
   next(new AppError(`Cannot find ${req.originalUrl} in server`, 404));
 });

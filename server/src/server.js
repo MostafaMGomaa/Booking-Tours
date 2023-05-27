@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-
 dotenv.config({ path: `${__dirname}/.env` });
 const app = require('./app');
 
@@ -23,7 +22,7 @@ mongoose.connect(DB).then(() => {
   console.log('DB connection successful!');
 });
 
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, async () => {
   console.log(`Server listen to port ${PORT}`);
 });
 
