@@ -7,15 +7,18 @@ exports.getAll = (Model) =>
     let filter = {};
 
     if (req.params.tourId) filter = { tour: req.params.tourId };
+    console.log('HI');
 
     const features = new APIFeatures(Model.find(filter), req.query)
       .filter()
       .sort()
-      .limit()
-      .pagnation();
+      .limitFields()
+      .paginate();
+
+    console.log('About');
 
     const data = await features.query;
-
+    console.log('Here we go');
     // SEND RESPONSE
     res.status(200).json({
       status: 'success',
