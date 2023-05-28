@@ -21,7 +21,7 @@ const globalErrorHandler = require('./controllers/errorControllers');
 
 const app = express();
 dotenv.config({ path: `${__dirname}/.env` });
-
+console.log(`${__dirname}/.env`);
 // Middlewares
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 

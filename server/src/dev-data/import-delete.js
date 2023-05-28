@@ -104,7 +104,7 @@ const file = jsonfile
 const generateFlights = () => {
   const flights = [];
 
-  data.forEach((from, idx) => {
+  data.forEach((from) => {
     const to = getRandomAirport();
     const tourType = ['return', 'return'][Math.floor(Math.random() * 2)];
     const startDate = randomDate();
