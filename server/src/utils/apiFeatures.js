@@ -4,17 +4,37 @@ class APIFeatures {
     this.queryString = queryString;
   }
 
+  // filter() {
+  //   const queryObj = { ...this.queryString };
+  //   const excludedFields = ['page', 'sort', 'limit', 'fields'];
+  //   excludedFields.forEach((el) => delete queryObj[el]);
+
+  //   // 1B) Advanced filtering
+
+  //   // console.log(queryObj, queryObj.takeOff);
+  //   let queryStr = JSON.stringify(queryObj);
+
+  //   queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+  //   // console.log(queryStr);
+  //   this.query = this.query.find(JSON.parse(queryStr));
+
+  //   return this;
+  // }
   filter() {
     const queryObj = { ...this.queryString };
     const excludedFields = ['page', 'sort', 'limit', 'fields'];
     excludedFields.forEach((el) => delete queryObj[el]);
 
-    // 1B) Advanced filtering
-
     let queryStr = JSON.stringify(queryObj);
-    console.log(queryStr);
-    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
-    console.log(queryStr);
+
+    queryStr = queryStr.replace(
+      /\b(gte|gt|lte|lt)\b/g,
+      (match, operator, date) => {
+        console.log(match, operator, date);
+        return `"takeOff":{"$${operator}":"${date}"}`;
+      }
+    );
+
     this.query = this.query.find(JSON.parse(queryStr));
 
     return this;
