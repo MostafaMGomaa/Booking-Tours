@@ -4,18 +4,14 @@ const AppError = require('../utils/appError');
 
 exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
-    let filter = {};
-
-    if (req.params.tourId) filter = { tour: req.params.tourId };
-
-    const features = new APIFeatures(Model.find(filter), req.query)
+    const features = new APIFeatures(Model.find(), req.query)
       .filter()
       .sort()
       .limitFields()
       .paginate();
 
-    const data = await features.query.exec();
-    // SEND RESPONSE
+    const data = await features.query;
+
     res.status(200).json({
       status: 'success',
       result: data.length,
