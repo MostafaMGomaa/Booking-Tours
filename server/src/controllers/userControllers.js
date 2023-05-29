@@ -24,7 +24,7 @@ exports.getMe = (req, res, next) => {
   next();
 };
 
-exports.getUser = getOne(User, { path: 'ticket' });
+exports.getUser = getOne(User, { path: 'ticket reviews' });
 
 exports.deleteMe = catchAsync(async (req, res) => {
   await User.findByIdAndUpdate(req.user.id, { active: false });

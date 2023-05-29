@@ -98,73 +98,12 @@ router.post('/upload', upload.array('file'), async (req, res) => {
 
 router.patch('/updateMyPassword', updatePassword);
 
-/**
- * @swagger
- * /api/v1/users/:
- *  get:
- *    tags: [Users]
- *    summary: Return the List of Users
- *    responses:
- *      200:
- *        description: Return All Users.
- *        content:
- *          application/json:
- *            schema:
- *              $ref: '#components/schemas/User'
- *
- */
-
 router.route('/').get(restrictTo('admin'), getAllUsers);
-
-/**
- * @swagger
- * /api/v1/users/{id}:
- *   get:
- *     summary: Get the user by id
- *     tags: [Users]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: The user id
- *     responses:
- *       200:
- *         description: The user description by id
- *         contens:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/User'
- *       404:
- *         description: The user was not found
- */
 
 router.use(restrictTo('user'));
 
 router.route('/me').get(getMe, getUser).delete(deleteMe);
 router.route('/:id').get(getUser);
 router.patch('/updateUserData', updateUserData);
-
-// router.put(
-//   '/:userId/profile-image',
-//   uploadImage.single('image'), // our uploadImage middleware
-//   (req, res, next) => {
-//     /*
-//          req.file = {
-//            fieldname, originalname,
-//            mimetype, size, bucket, key, location
-//          }
-//       */
-
-//     // location key in req.file holds the s3 url for the image
-//     let data = {};
-//     if (req.file) {
-//       data.image = req.file.location;
-//     }
-
-//     // HERE IS YOUR LOGIC TO UPDATE THE DATA IN DATABASE
-//   }
-// );
 
 module.exports = router;

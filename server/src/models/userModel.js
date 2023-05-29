@@ -128,6 +128,12 @@ userSchema.virtual('ticket', {
   localField: '_id',
 });
 
+userSchema.virtual('reviews', {
+  ref: 'Review',
+  foreignField: 'user',
+  localField: '_id',
+});
+
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
