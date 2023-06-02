@@ -12,8 +12,7 @@ pipeline{
         
 		stage('Build') {
 			steps {
-                sh 'cd server'
-				sh 'docker build -t mostafamgomaa/gp:v1 .'
+				sh 'cd server && docker build -t mostafamgomaa/gp:v1 .'
 			}
 		}
 		stage('Login') {
