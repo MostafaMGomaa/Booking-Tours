@@ -13,7 +13,7 @@ exports.s3Uploadv2 = async (username, file) => {
 
   const param = {
     Bucket: process.env.AWS_BUCKET_NAME,
-    Key: `avatars/${username}-${Date.now()}`,
+    Key: `avatars/${username}-${Date.now()}.jpg`,
     Body: file.buffer,
   };
   return await s3

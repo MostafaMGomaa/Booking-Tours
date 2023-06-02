@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema(
     },
     photo: {
       type: String,
-      default: 'default.png',
+      default: 'https://mostafa-dev-gp.s3.amazonaws.com/avatars/default.jpg',
     },
     role: {
       type: String,

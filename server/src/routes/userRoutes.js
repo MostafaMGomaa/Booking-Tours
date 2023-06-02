@@ -18,59 +18,10 @@ const {
   getMe,
   deleteMe,
   updateUserData,
+  updateUserAvatar,
 } = require('../controllers/userControllers');
 
-const { s3Uploadv2, upload } = require('../controllers/imageController');
-/**
- * @swagger
- * components:
- *  schemas:
- *    User:
- *      type: object
- *      required:
- *        - name
- *        - email
- *        - password
- *        - passwordConfirm
- *      properties:
- *        id:
- *          type: mongoId
- *        name:
- *          type: string
- *        email:
- *          type: string
- *        password:
- *          type: string
- *        passwordConfirm:
- *          type: string
- *        photo:
- *          type: string
- *        role:
- *          type: string
- *        passwordChangedAt:
- *          type: date
- *        passwordResetToken:
- *          type: string
- *        passwordResetExpires:
- *          type: date
- *        active:
- *          type: boolean
- *      example:
- *       id: 52454
- *       name: Mostafa
- *       email: ms@hello.com
- *       photo: default.png
- *       role: user
- *
- *
- */
-
-/**
- * @swagger
- * tags:
- *  name: Users
- *  description: The users manging api including Auth functions
- */
+const { upload } = require('../controllers/imageController');
 
 // Auth
 
@@ -86,15 +37,7 @@ router.patch('/resetPassword/:token', resetPassword);
 
 router.use(protect);
 
-router.post('/upload', upload.array('file'), async (req, res) => {
-  try {
-    const results = await s3Uploadv2(req.user.name, req.files[0]);
-    console.log(results);
-    return res.json({ status: 'success', results });
-  } catch (err) {
-    console.log(err);
-  }
-});
+router.patch('/updateUserAvatar', upload.array('avatar'), updateUserAvatar);
 
 router.patch('/updateMyPassword', updatePassword);
 

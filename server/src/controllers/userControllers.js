@@ -1,14 +1,8 @@
 const User = require('../models/userModel');
-const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
-const {
-  getAll,
-  getOne,
-  createOne,
-  updateOne,
-  deleteOne,
-} = require('./handleOps');
+const { getAll, getOne } = require('./handleOps');
+const { s3Uploadv2 } = require('./imageController');
 
 exports.getAllUsers = getAll(User);
 
@@ -49,5 +43,23 @@ exports.updateUserData = catchAsync(async (req, res) => {
     data: {
       user,
     },
+  });
+});
+
+exports.updateUserAvatar = catchAsync(async (req, res) => {
+  const results = await s3Uploadv2(req.user.name, req.files[0]);
+  const user = await User.findByIdAndUpdate(
+    req.user.id,
+    {
+      photo: results.Location,
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  return res.json({
+    status: 'success',
+    message: `${req.user.name}'s avatar changed successfully`,
   });
 });
