@@ -3,9 +3,7 @@ const morgan = require('morgan');
 const dotenv = require('dotenv');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
-const swaggerUi = require('swagger-ui-express');
 const cookieParser = require('cookie-parser');
-const swaggeJsDoc = require('swagger-jsdoc');
 const xss = require('xss-clean');
 const dataSanitize = require('express-mongo-sanitize');
 const hpp = require('hpp');
@@ -48,37 +46,18 @@ app.use((req, res, next) => {
 
 // Routes
 // Test server
-app.get('healthz', (req, res) => {
-  res.status(200, {
-    status: '✌️',
+app.get('/healthz', (req, res) => {
+  res.status(200).json({
+    status: 'success',
+  });
+});
+app.get('/', (req, res) => {
+  res.status(200).json({
+    status: 'success',
+    message: 'Try GET /api/v1/tours',
   });
 });
 
-app.get('hi', (req, res) => {
-  res.send('5');
-});
-// Setting up swagger.
-
-const swaggerOptions = {
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'Booking-Flight API',
-      version: '1.0.0',
-      description: 'Test sweger',
-    },
-    servers: [
-      {
-        url: 'http://127.0.0.1:3000',
-      },
-    ],
-  },
-  apis: ['./routes/*.js'],
-};
-
-const spec = swaggeJsDoc(swaggerOptions);
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(spec));
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/tours', tourRoutes);
 app.use('/api/v1/reviews', reviewRoutes);

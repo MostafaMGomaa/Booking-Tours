@@ -30,7 +30,7 @@ const createSendToken = (user, statusCode, res) => {
   user.password = undefined;
 
   res.status(statusCode).json({
-    status: 'sucess',
+    status: 'success',
     token,
     data: {
       user,
@@ -231,7 +231,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   const token = signToken(user._id);
 
   res.status(200).json({
-    status: 'sucess',
+    status: 'success',
     token,
   });
 });
