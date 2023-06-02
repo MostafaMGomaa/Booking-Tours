@@ -9,9 +9,11 @@ pipeline{
 				git 'https://github.com/MostafaMGomaa/Booking-flights-web-application'
 			}
 		}
+        
 		stage('Build') {
 			steps {
-				sh 'docker build -t mostafamgomaa/gp:v1'
+                sh 'cd server'
+				sh 'docker build -t mostafamgomaa/gp:v1 .'
 			}
 		}
 		stage('Login') {
