@@ -105,10 +105,14 @@ const generateFlights = () => {
   const flights = [];
 
   data.forEach((from, idx) => {
+    const transportation = ['plane', 'bus'][Math.floor(Math.random() * 2)];
     const to = getRandomAirport();
-    const tourType = ['return', 'return'][Math.floor(Math.random() * 2)];
+    const tourType = ['oneway', 'return'][Math.floor(Math.random() * 2)];
     const startDate = randomDate();
-
+    const classType =
+      transportation === 'plane'
+        ? ['first', 'business', 'economy'][Math.floor(Math.random() * 3)]
+        : '';
     const flight = {
       fromCountry: from.country,
       fromCity: from.city || from.country,
@@ -132,16 +136,21 @@ const generateFlights = () => {
       }hrs', to enjoy in ${to.city} `,
       summary: `a Tour from ${from.city || from.country} to ${to.city}`,
       baggage: [30, 23][Math.floor(Math.random() * 2)],
+      transportation,
+      class: classType,
     };
     flights.push(flight);
   });
   return flights;
 };
+
+// Write data on tours.json
 fs.writeFileSync(
   `${__dirname}/tours.json`,
   JSON.stringify(generateFlights()),
   'utf-8'
 );
+
 // generateFlights();
 // Read data from tours.json.
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'));
