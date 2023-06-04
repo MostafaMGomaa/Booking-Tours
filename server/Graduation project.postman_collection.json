@@ -259,7 +259,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "638fbbf69d84f3cae998540d",
+											"value": "64550abc3f550fd75c7d938a",
 											"description": "userId"
 										}
 									]
@@ -274,7 +274,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\": \"abdo\",\n    \"email\": \"abohooda2009@yahoo.com\",\n    \"role\": \"admin\"\n}",
+									"raw": "{\n    \"name\": \"Mostafa        \"    \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -309,6 +309,35 @@
 										"v1",
 										"users",
 										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Upload file",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": "/home/mostafa/Downloads/Img/dog.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}api/v1/users/updateUserAvatar",
+									"host": [
+										"{{URL}}api"
+									],
+									"path": [
+										"v1",
+										"users",
+										"updateUserAvatar"
 									]
 								}
 							},
@@ -370,13 +399,49 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}api/v1/tours",
+							"raw": "{{URL}}api/v1/tours?takeOff[gte]=2023-08-07T00:00:00.898Z",
 							"host": [
 								"{{URL}}api"
 							],
 							"path": [
 								"v1",
 								"tours"
+							],
+							"query": [
+								{
+									"key": "takeOff[gte]",
+									"value": "2023-08-07T00:00:00.898Z"
+								},
+								{
+									"key": "endDate[lte]",
+									"value": "2023-11-11T21:41:35.930Z",
+									"disabled": true
+								},
+								{
+									"key": "takeOff",
+									"value": "2023-02-02T12:41:16.898Z",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "limitFields",
+									"value": "name",
+									"disabled": true
+								},
+								{
+									"key": "transportation",
+									"value": "bus",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -403,7 +468,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "64590e61d94095183ef387e9"
+									"value": "64590e61d94095183ef388a4"
 								}
 							]
 						}
