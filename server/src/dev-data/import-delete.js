@@ -7,7 +7,6 @@ const random_date = require('random-date-generator');
 const fs = require('fs');
 
 const Tour = require('../models/tourModel');
-
 dotenv.config({ path: `${__dirname}/../.env` });
 let DB = '';
 if (process.env.LOCAL) {
@@ -18,6 +17,7 @@ if (process.env.LOCAL) {
     process.env.DATABASE_PASSWORD
   );
 }
+mongoose.set('strictQuery', false);
 
 mongoose.connect(DB).then(() => console.log('Connected Successfully'));
 
@@ -92,60 +92,163 @@ const file = jsonfile
     }
   });
 
+const getTour = (
+  from,
+  to,
+  classType,
+  tourType,
+  startDate,
+  endDate,
+  transportation,
+  price
+) => {
+  return {
+    fromCountry: from.country,
+    fromCity: from.city || from.country,
+    fromSite: from.name || from.city,
+    toCountry: 'Egypt',
+    toCity: to.city,
+    toSite: to.airport || to.city,
+    name: `a Tour from ${from.city || from.country} to ${to.city}`,
+    price,
+    type: tourType,
+    takeOff: startDate,
+    endDate,
+    duration: Math.trunc(Math.random() * 21) + 1,
+    description: `a fantastic Tour start in '${moment(randomDate()).format(
+      'MMMM Do YYYY'
+    )}' and take about '${
+      Math.trunc(Math.random() * 21) + 1
+    }hrs', to enjoy in ${to.city} `,
+    summary: `a Tour from ${from.city || from.country} to ${to.city}`,
+    baggage: [30, 23][Math.floor(Math.random() * 2)],
+    transportation,
+    class: classType,
+  };
+};
+
 /**
- * GENERATE SOME FLIGHTS FROM THE DATA ARRAY
- * GENERATE A FLIGHT FROM EACH ELEMENT TO A RANDOM ELEMENT
+ * GENERATE SOME PLAN TOURS FROM THE DATA ARRAY
+ * GENERATE A TOUR FROM EACH ELEMENT TO A RANDOM ELEMENT
  * GENERATE A RANDOM PRICE BETWEEN 500$-1000$
- * CURRENT DATE AND TIME
- * PUSH THIS FLIGHT TO THE FLIGHTS ARRAY
- * WRITE FLIGHTS INTO TOURS.JSON
+ * GENERATE DATE AND TIME
+ * PUSH THIS TOUR TO THE PLAN TOURS ARRAY
+ * DO SOME WITH BUS TOURS
+ * THEN WRITE TOURS INTO TOURS.JSON
  */
 
-const generateFlights = () => {
-  const flights = [];
+const generatePlanTours = (data) => {
+  const tours = [];
 
+  // Generate a random plan tours
   data.forEach((from) => {
     const to = getRandomAirport();
-    const tourType = ['return', 'return'][Math.floor(Math.random() * 2)];
+    const tourType = ['oneway', 'return'][Math.floor(Math.random() * 2)];
     const startDate = randomDate();
-
-    const flight = {
-      fromCountry: from.country,
-      fromCity: from.city || from.country,
-      fromSite: from.name || from.city,
-      toCountry: 'Egypt',
-      toCity: to.city,
-      toSite: to.airport,
-      name: `a Tour from ${from.city || from.country} to ${to.city}`,
-      price: Math.trunc(Math.random() * 500) + 500,
-      type: tourType,
-      takeOff: startDate,
-      endDate:
-        tourType === 'return'
-          ? new Date(moment(startDate).add(3, 'M'))
-          : startDate,
-      duration: Math.trunc(Math.random() * 21) + 1,
-      description: `a fantastic Tour start in '${moment(randomDate()).format(
-        'MMMM Do YYYY'
-      )}' and take about '${
-        Math.trunc(Math.random() * 21) + 1
-      }hrs', to enjoy in ${to.city} `,
-      summary: `a Tour from ${from.city || from.country} to ${to.city}`,
-      baggage: [30, 23][Math.floor(Math.random() * 2)],
-    };
-    flights.push(flight);
+    const endDate =
+      tourType === 'return'
+        ? new Date(moment(startDate).add(3, 'M'))
+        : startDate;
+    const classType = ['first', 'business', 'comfort'][
+      Math.floor(Math.random() * 3)
+    ];
+    const price = Math.trunc(Math.random() * 500) + 500;
+    const planTour = getTour(
+      from,
+      to,
+      classType,
+      tourType,
+      startDate,
+      endDate,
+      'plane',
+      price
+    );
+    tours.push(planTour);
   });
-  return flights;
+  return tours;
 };
-// console.log(generateFlights());
+
+const generateBusTours = () => {
+  const tours = [];
+  const stations = [
+    'Alexandria',
+    'Cairo',
+    'Tanta',
+    'Damanhour',
+    'Kafr El Sheikh',
+    'Mansoura',
+    'Beni Suef',
+  ];
+  const destinations = [
+    'Giza',
+    'Luxor',
+    'Aswan',
+    'Cairo',
+    'Alexandria',
+    'Sharm El Sheikh',
+    'Hurghada',
+    'Dahab',
+    'Siwa Oasis',
+    'Marsa Alam',
+    'Fayoum',
+    'Abydos',
+    'Edfu',
+    'Philae',
+    'Marsa Matruh',
+    'White Desert',
+    'Ras Mohammed',
+    'Nuweiba',
+    'Saint Catherine',
+    'Bahariya Oasis',
+  ];
+
+  for (let i = 0; i < stations.length; i++) {
+    for (let j = 0; j < destinations.length; j++) {
+      const tourType = 'return';
+      const startDate = randomDate();
+      const endDate = new Date(moment(startDate).add(5, 'DAYS'));
+      const classType = ['first', 'business', 'economy'][
+        Math.floor(Math.random() * 3)
+      ];
+      const price = Math.trunc(Math.random() * 100) + 100;
+      const element = destinations[j];
+      const from = {};
+      const to = {};
+      if (element === stations[i]) continue;
+      from.country = 'Egypt';
+      from.city = stations[i];
+      to.city = destinations[j];
+      const tour = getTour(
+        from,
+        to,
+        classType,
+        tourType,
+        startDate,
+        endDate,
+        'bus',
+        price
+      );
+      tours.push(tour);
+    }
+  }
+  return tours;
+};
+
+const generateTours = () => {
+  const planTours = generatePlanTours(data);
+  const busTours = generateBusTours();
+  return [...busTours, ...planTours];
+};
+
+// Write data on tours.json
 fs.writeFileSync(
   `${__dirname}/tours.json`,
-  JSON.stringify(generateFlights()),
+  JSON.stringify(generateTours()),
   'utf-8'
 );
-// generateFlights();
+
 // Read data from tours.json.
-// const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'));
+const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'));
 
 const importDataToDB = async () => {
   try {

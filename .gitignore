@@ -105,3 +105,7 @@ dist
 .tern-port
 
 dev-data/
+
+
+# test some tips
+test.js

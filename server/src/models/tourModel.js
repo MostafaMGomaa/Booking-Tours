@@ -95,8 +95,8 @@ const tourSchema = new mongoose.Schema(
     type: {
       type: String,
       enum: {
-        values: ['oneWay', 'return'],
-        message: 'Tour must be oneWay or return',
+        values: ['oneway', 'return'],
+        message: 'Tour must be oneway or return',
       },
     },
     baggage: {
@@ -111,14 +111,8 @@ const tourSchema = new mongoose.Schema(
     class: {
       type: String,
       enum: {
-        values: [],
-        message: '',
-      },
-      validate: {
-        validator: function (val) {
-          return val <= 32;
-        },
-        message: 'Baggage cannot exceed 32 kg per piece',
+        values: ['first', 'business', 'economy', 'comfort', ''],
+        message: 'Tour could be first , business, economy class or ',
       },
     },
   },

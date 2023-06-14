@@ -8,6 +8,7 @@ const {
   updateOneTicket,
   deleteAll,
 } = require('../controllers/ticketControllers');
+
 const { getCheckoutSession } = require('./../controllers/checkoutController');
 
 const { protect } = require('../controllers/authControllers');
@@ -23,6 +24,6 @@ router
   .patch(updateOneTicket)
   .delete(deleteOneTicket);
 
-router.get('/checkout-session/:tourId', getCheckoutSession);
+router.post('/checkout-session/:ticketId', getCheckoutSession);
 
 module.exports = router;

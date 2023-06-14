@@ -8,6 +8,8 @@ const userSchema = new mongoose.Schema(
     name: {
       type: String,
       required: [true, 'Please tell us your name!'],
+      trim: true,
+      lowercase: true,
     },
     email: {
       type: String,
@@ -18,7 +20,7 @@ const userSchema = new mongoose.Schema(
     },
     photo: {
       type: String,
-      default: 'default.png',
+      default: 'https://mostafa-dev-gp.s3.amazonaws.com/avatars/default.jpg',
     },
     role: {
       type: String,
@@ -122,6 +124,12 @@ userSchema.methods.createPasswordResetToken = function () {
 
 userSchema.virtual('ticket', {
   ref: 'Ticket',
+  foreignField: 'user',
+  localField: '_id',
+});
+
+userSchema.virtual('reviews', {
+  ref: 'Review',
   foreignField: 'user',
   localField: '_id',
 });

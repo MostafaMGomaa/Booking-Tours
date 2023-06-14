@@ -31,7 +31,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\":\"name\",\n    \"email\":\"name@mostafa.com\",\n    \"password\": \"123456789\",\n    \"passwordConfirm\": \"123456789\"\n}",
+									"raw": "{\n    \"name\":\"name\",\n    \"email\":\"mostafa@mailsac.com\",\n    \"password\": \"123456789\",\n    \"passwordConfirm\": \"123456789\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -71,7 +71,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\": \"hacker@mostafa.com\",\n    \"password\": \"123456789\"\n}",
+									"raw": "{\n    \"email\": \"mostafa@mailsac.com\",\n    \"password\": \"{{pass}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -186,7 +186,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"currentPassword\": \"{{newpass}}\",\n    \"newPassword\": \"{{newpass}}\",\n    \"newPasswordConfirm\": \"{{newpass}}\"\n}",
+									"raw": "{\n    \"currentPassword\": \"{{pass}}\",\n    \"newPassword\": \"{{newpass}}\",\n    \"newPasswordConfirm\": \"{{newpass}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -259,7 +259,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "638fbbf69d84f3cae998540d",
+											"value": "64550abc3f550fd75c7d938a",
 											"description": "userId"
 										}
 									]
@@ -274,7 +274,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\": \"abdo\",\n    \"email\": \"abohooda2009@yahoo.com\",\n    \"role\": \"admin\"\n}",
+									"raw": "{\n    \"name\": \"Mostafa        \"    \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -290,6 +290,54 @@
 										"v1",
 										"users",
 										"updateUserData"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE ALL USERS",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}api/v1/users/all",
+									"host": [
+										"{{URL}}api"
+									],
+									"path": [
+										"v1",
+										"users",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Upload file",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": "/home/mostafa/Downloads/Img/dog.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}api/v1/users/updateUserAvatar",
+									"host": [
+										"{{URL}}api"
+									],
+									"path": [
+										"v1",
+										"users",
+										"updateUserAvatar"
 									]
 								}
 							},
@@ -351,13 +399,49 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}api/v1/tours",
+							"raw": "{{URL}}api/v1/tours?takeOff[gte]=2023-08-07T00:00:00.898Z",
 							"host": [
 								"{{URL}}api"
 							],
 							"path": [
 								"v1",
 								"tours"
+							],
+							"query": [
+								{
+									"key": "takeOff[gte]",
+									"value": "2023-08-07T00:00:00.898Z"
+								},
+								{
+									"key": "endDate[lte]",
+									"value": "2023-11-11T21:41:35.930Z",
+									"disabled": true
+								},
+								{
+									"key": "takeOff",
+									"value": "2023-02-02T12:41:16.898Z",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "limitFields",
+									"value": "name",
+									"disabled": true
+								},
+								{
+									"key": "transportation",
+									"value": "bus",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -384,7 +468,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "63a30be2cfb04be060c88c53"
+									"value": "64590e61d94095183ef388a4"
 								}
 							]
 						}
@@ -568,7 +652,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "63e13e9c5fa3057bcf750cb4"
+									"value": "63e147d24286ea7b393fd95c"
 								}
 							]
 						}
@@ -623,7 +707,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "    {\n        \"rating\": 5    }",
+							"raw": "    {\n       \"rating\": 3    \n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -643,7 +727,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "63de1c5e8a538633a1045814"
+									"value": "63e147d24286ea7b393fd95c"
 								}
 							]
 						}
@@ -679,11 +763,221 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "## Reviews endpoints"
 		},
 		{
 			"name": "Tickets",
-			"item": []
+			"item": [
+				{
+					"name": "GET checkout session Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}api/v1/tickets/checkout-session/:ticketId",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"v1",
+								"tickets",
+								"checkout-session",
+								":ticketId"
+							],
+							"variable": [
+								{
+									"key": "ticketId",
+									"value": "645911015fc3f95307c99579"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Tickets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}api/v1/tickets",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"v1",
+								"tickets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete All Tickets",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}api/v1/tickets/deleteAll",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"v1",
+								"tickets",
+								"deleteAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Ticket",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}api/v1/tickets/:id",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"v1",
+								"tickets",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6458c67442f1c672afc973fa"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Ticket",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"tour\": \"64590e61d94095183ef387e9\",\n\"numOfTickets\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}api/v1/tickets/",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"v1",
+								"tickets",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Ticket",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Tour\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}api/v1/tickets/:id",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"v1",
+								"tickets",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "63a30be2cfb04be060c88c53"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Ticket",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}api/v1/tickets/:id",
+							"host": [
+								"{{URL}}api"
+							],
+							"path": [
+								"v1",
+								"tickets",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6458dbd180f966a09244983f"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Review/Tour",
@@ -698,7 +992,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n      \"rating\": 4,\n  \"review\": \"Another Try nested in the world'\"\n\n\n}",
+							"raw": "{\n  \"rating\": 4,\n  \"review\": \"TESTING\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

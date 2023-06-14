@@ -3,13 +3,12 @@ const morgan = require('morgan');
 const dotenv = require('dotenv');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
-const swaggerUi = require('swagger-ui-express');
 const cookieParser = require('cookie-parser');
-const swaggeJsDoc = require('swagger-jsdoc');
 const xss = require('xss-clean');
 const dataSanitize = require('express-mongo-sanitize');
 const hpp = require('hpp');
 const cors = require('cors');
+const multer = require('multer');
 
 const userRoutes = require('./routes/userRoutes');
 const tourRoutes = require('./routes/tourRoutes');
@@ -40,45 +39,54 @@ app.use(dataSanitize());
 app.use(xss());
 app.use(hpp());
 
+app.use((req, res, next) => {
+  res.header({ 'Access-Control-Allow-Credentials': true });
+  next();
+});
+
 // Routes
 // Test server
-app.get('healthz', (req, res) => {
-  res.status(200, {
-    status: '✌️',
+app.get('/healthz', (req, res) => {
+  res.status(200).json({
+    status: 'success',
+  });
+});
+app.get('/', (req, res) => {
+  res.status(200).json({
+    status: 'success',
+    message: 'Try GET /api/v1/tours',
   });
 });
 
-app.get('hi', (req, res) => {
-  res.send('5');
-});
-// Setting up swagger.
-
-const swaggerOptions = {
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'Booking-Flight API',
-      version: '1.0.0',
-      description: 'Test sweger',
-    },
-    servers: [
-      {
-        url: 'http://127.0.0.1:3000',
-      },
-    ],
-  },
-  apis: ['./routes/*.js'],
-};
-
-const spec = swaggeJsDoc(swaggerOptions);
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(spec));
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/tours', tourRoutes);
 app.use('/api/v1/reviews', reviewRoutes);
 app.use('/api/v1/tickets', ticketRoutes);
 
 // Error
+
+app.use((error, req, res, next) => {
+  if (error instanceof multer.MulterError) {
+    if (error.code === 'LIMIT_FILE_SIZE') {
+      return res.status(400).json({
+        message: 'file is too large',
+      });
+    }
+
+    if (error.code === 'LIMIT_FILE_COUNT') {
+      return res.status(400).json({
+        message: 'File limit reached',
+      });
+    }
+
+    if (error.code === 'LIMIT_UNEXPECTED_FILE') {
+      return res.status(400).json({
+        message: 'File must be an image',
+      });
+    }
+  }
+});
+
 app.all('*', (req, res, next) => {
   next(new AppError(`Cannot find ${req.originalUrl} in server`, 404));
 });
