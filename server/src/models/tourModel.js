@@ -124,6 +124,7 @@ const tourSchema = new mongoose.Schema(
 );
 
 tourSchema.index({ fromCountry: 1, toCountry: 1, price: -1 });
+tourSchema.index({ takeOff: 1 });
 
 tourSchema.virtual('reviews', {
   ref: 'Review',
