@@ -2,14 +2,14 @@ const AppError = require('../utils/appError');
 
 const handleDuplicateFieldsErrorDB = (err) => {
   // Capture the value which duplicate in error msg using Regluar expression.
-  const value = err.errmsg.match(/(["'])(?:(?=(\\?))\2.)*?\1/)[0];
+  const value = err.errmsg.match(/(["'])(\\?.)*?\1/)[0];
 
-  const message = `Duplicate field value: ${value}. Please use another one`;
+  const message = `Duplicate field value: ${value}. Please use another value.`;
   return new AppError(message, 400);
 };
 
 const handleCastErrorDB = (err) => {
-  const message = `Invaild ${err.path}: ${err.value}`;
+  const message = `Invalid ${err.path}: ${err.value}`;
   return new AppError(message, 400);
 };
 

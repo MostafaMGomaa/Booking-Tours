@@ -85,6 +85,7 @@ app.use((error, req, res, next) => {
       });
     }
   }
+  next(error);
 });
 
 app.all('*', (req, res, next) => {

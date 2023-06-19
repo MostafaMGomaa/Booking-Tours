@@ -24,22 +24,21 @@ exports.getAll = (Model) =>
     });
   });
 
-exports.getOne = (Model, popOptions) =>
+exports.getOne = (Model, populateOptions) =>
   catchAsync(async (req, res, next) => {
-    let query = await Model.findById(req.params.id);
+    let query = Model.findById(req.params.id);
 
-    if (popOptions) query = await query.populate(popOptions);
+    if (populateOptions) query = query.populate(populateOptions);
 
     const doc = await query;
 
     if (!doc)
-      return next(new AppError(`Cannot find any result with this ID`, 404));
+      return next(new AppError('Cannot find any result with this ID', 404));
 
-    // SEND RESPONSE
     res.status(200).json({
       status: 'success',
       data: {
-        doc,
+        data: doc,
       },
     });
   });

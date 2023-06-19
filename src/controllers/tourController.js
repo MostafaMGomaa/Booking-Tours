@@ -9,7 +9,7 @@ const {
 } = require('./handleOps');
 
 exports.getAllTours = getAll(Tour);
-exports.getTour = getOne(Tour, { path: 'reviews', select: '-__v ' });
+exports.getTour = getOne(Tour);
 exports.createTour = createOne(Tour);
 exports.updateTour = updateOne(Tour);
 exports.deleteTour = deleteOne(Tour);
