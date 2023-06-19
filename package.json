@@ -59,7 +59,7 @@
     "random-date-generator": "^1.0.2"
   },
   "engines": {
-    "node": "16.x",
-    "npm": "6.x"
+    "node": "16.16.0",
+    "npm": "8.11.0"
   }
 }
