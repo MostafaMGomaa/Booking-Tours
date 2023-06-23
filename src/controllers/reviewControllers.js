@@ -5,6 +5,7 @@ const {
   createOne,
   updateOne,
   deleteOne,
+  deleteAll,
 } = require('./handleOps');
 
 exports.setTourUserId = (req, res, next) => {
@@ -12,7 +13,7 @@ exports.setTourUserId = (req, res, next) => {
   if (!req.body.user) req.body.user = req.user.id;
   next();
 };
-
+exports.deleteAllReviews = deleteAll(Review);
 exports.getAllReviews = getAll(Review);
 exports.getOneReview = getOne(Review, { path: 'user tour', select: '-__v ' });
 exports.createOneReview = createOne(Review);

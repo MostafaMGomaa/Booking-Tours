@@ -85,12 +85,11 @@ exports.deleteOne = (Model) =>
     });
   });
 
-exports.deleteAll = (Model) => {
+exports.deleteAll = (Model) =>
   catchAsync(async (req, res, next) => {
     await Model.deleteMany();
 
-    res.status(204).send({
+    res.status(204).json({
       status: 'success',
     });
   });
-};

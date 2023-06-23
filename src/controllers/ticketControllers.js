@@ -2,14 +2,9 @@ const Ticket = require('../models/ticketModel');
 const Tour = require('../models/tourModel');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
-const {
-  getAll,
-  getOne,
-  createOne,
-  updateOne,
-  deleteOne,
-} = require('./handleOps');
+const { getAll, getOne, updateOne, deleteAll } = require('./handleOps');
 
+exports.deleteAllTickets = deleteAll(Ticket);
 exports.getAllTicket = getAll(Ticket);
 exports.getOneTicket = getOne(Ticket);
 exports.updateOneTicket = updateOne(Ticket);
@@ -56,9 +51,4 @@ exports.createOneTicket = catchAsync(async (req, res, next) => {
     status: 'success',
     data: { ticket },
   });
-});
-
-exports.deleteAll = catchAsync(async (req, res) => {
-  await Ticket.deleteMany();
-  res.send({});
 });

@@ -6,15 +6,15 @@ const {
   getAllTicket,
   getOneTicket,
   updateOneTicket,
-  deleteAll,
+  deleteAllTickets,
 } = require('../controllers/ticketControllers');
 
 const { getCheckoutSession } = require('./../controllers/checkoutController');
 
 const { protect } = require('../controllers/authControllers');
 
+router.delete('/deleteAll', deleteAllTickets);
 router.use(protect);
-router.delete('/deleteAll', deleteAll);
 
 router.route('/').get(getAllTicket).post(createOneTicket);
 

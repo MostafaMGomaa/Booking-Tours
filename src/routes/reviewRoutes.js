@@ -9,10 +9,12 @@ const {
   getOneReview,
   updateOneReview,
   setTourUserId,
+  deleteAllReviews,
 } = require('../controllers/reviewControllers');
 
 const { restrictTo, protect } = require('../controllers/authControllers');
 
+router.delete('/deleteAll', deleteAllReviews);
 router.use(protect);
 
 router
