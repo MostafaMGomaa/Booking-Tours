@@ -1,6 +1,7 @@
 const catchAsync = require('../utils/catchAsync');
 const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
+const { Model } = require('mongoose');
 
 exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
@@ -83,3 +84,13 @@ exports.deleteOne = (Model) =>
       message: 'tour deleted successfully',
     });
   });
+
+exports.deleteAll = (Model) => {
+  catchAsync(async (req, res, next) => {
+    await Model.deleteMany();
+
+    res.status(204).send({
+      status: 'success',
+    });
+  });
+};

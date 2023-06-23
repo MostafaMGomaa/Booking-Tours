@@ -12,7 +12,7 @@ const {
 } = require('../controllers/authControllers');
 
 const {
-  deleteAll,
+  deleteAllUsers,
   getAllUsers,
   getUser,
   getMe,
@@ -27,7 +27,7 @@ const { upload } = require('../controllers/imageController');
 
 // !TODO: DELTE THIS BEFORE DEPLOY
 // FOR DEV ONLY
-router.delete('/all', deleteAll);
+router.delete('/all', deleteAllUsers);
 
 router.post('/signup', signup);
 router.post('/login', login);

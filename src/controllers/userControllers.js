@@ -1,17 +1,12 @@
 const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
 
-const { getAll, getOne } = require('./handleOps');
+const { getAll, getOne, deleteAll } = require('./handleOps');
 const { s3Uploadv2 } = require('./imageController');
 
 exports.getAllUsers = getAll(User);
 
-exports.deleteAll = catchAsync(async (req, res) => {
-  await User.deleteMany();
-  res.status(204).send({
-    status: 'success',
-  });
-});
+exports.deleteAllUsers = deleteAll(User);
 
 exports.getMe = (req, res, next) => {
   req.params.id = req.user.id;
