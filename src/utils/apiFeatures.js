@@ -5,10 +5,6 @@ class APIFeatures {
   }
   filter() {
     const queryObj = { ...this.queryString };
-    if (queryObj['takeOff'])
-      queryObj['takeOff'] = { gte: new Date(queryObj['takeOff']) };
-    if (queryObj['endDate'])
-      queryObj['endDate'] = { lte: new Date(queryObj['endDate']) };
     const excludedFields = ['page', 'sort', 'limit', 'fields'];
     excludedFields.forEach((el) => delete queryObj[el]);
 
@@ -19,6 +15,7 @@ class APIFeatures {
         (match) => `$${match}`
       );
     }
+
     this.query = this.query.find(JSON.parse(queryStr));
 
     return this;
