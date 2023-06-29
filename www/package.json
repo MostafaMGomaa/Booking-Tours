@@ -10,8 +10,8 @@
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "start:prod": "NODE_ENV=production node server.js ",
-    "clean": "rmdir www/ || true",
-    "build": "cp -R src www && cp package.json www/package.json && mkdir www/tmp/ && cd www && zip -r Archive.zip . && cd .."
+    "clean": "rm -r www/ || true",
+    "build": "npm run clean && cp -R src www && cp package.json www/package.json && mkdir www/tmp/ && cd www && zip -r Archive.zip . && cd .."
   },
   "repository": {
     "type": "git",
