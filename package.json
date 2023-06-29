@@ -10,7 +10,8 @@
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "start:prod": "NODE_ENV=production node server.js ",
-    "build": "npm run clean && tsc && cp package.json www/package.json && mkdir www/tmp/ && cd www && zip -r Archive.zip . && cd .."
+    "clean": "rimraf www/ || true",
+    "build": "cp package.json www/package.json && mkdir www/tmp/ && cd www && zip -r Archive.zip . && cd .."
   },
   "repository": {
     "type": "git",
@@ -60,7 +61,7 @@
     "random-date-generator": "^1.0.2"
   },
   "engines": {
-    "node": "16.16.0",
-    "npm": "8.11.0"
+    "node": "18.x",
+    "npm": "8.x"
   }
 }
