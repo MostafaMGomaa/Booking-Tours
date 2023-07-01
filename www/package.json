@@ -11,7 +11,7 @@
     "dev": "nodemon src/server.js",
     "start:prod": "NODE_ENV=production node server.js ",
     "clean": "rm -r www/ || true",
-    "build": "cp -R src www && cp package.json www/package.json && mkdir www/tmp/ && cd www && zip -r Archive.zip . && cd .."
+    "build": "mkdir www || true && cp -R src www && cp package.json www/package.json && mkdir www/tmp/ && cd www && zip -r Archive.zip . && cd .."
   },
   "repository": {
     "type": "git",

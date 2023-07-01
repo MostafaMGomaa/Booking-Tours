@@ -20,20 +20,27 @@ const globalErrorHandler = require('./controllers/errorControllers');
 
 const app = express();
 dotenv.config({ path: `${__dirname}/.env` });
-console.log(`${__dirname}/.env`);
+
 // Middlewares
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
 app.use(cors());
-app.use(helmet());
-app.use(express.json({ limit: '10kb' }));
-app.use(cookieParser());
 app.use(
-  rateLimit({
-    max: 100,
-    windowMs: 60 * 60 * 1000,
+  helmet({
+    crossOriginEmbedderPolicy: false,
+    crossOriginOpenerPolicy: false,
   })
 );
+app.use(express.json({ limit: '10kb' }));
+
+app.use(cookieParser());
+
+// app.use(
+//   rateLimit({
+//     max: 500,
+//     windowMs: 60 * 60 * 1000,
+//   })
+// );
 app.use(express.static(`${__dirname}/public`));
 app.use(dataSanitize());
 app.use(xss());
