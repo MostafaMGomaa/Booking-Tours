@@ -1,6 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const fs = require('fs');
+const https = require('https');
+
 dotenv.config({ path: `${__dirname}/.env` });
 const app = require('./app');
 
@@ -24,9 +27,23 @@ mongoose.connect(DB).then(() => {
   console.log('DB connection successfully!');
 });
 
-const server = app.listen(PORT, async () => {
+const listener = () => async () => {
   console.log(`Server listen to port ${PORT}`);
-});
+};
+if (process.env.NODE_ENV === 'production') {
+  const key = fs.readFileSync(
+    '/etc/letsencrypt/live/booking-tours-dev2.us-east-1.elasticbeanstalk.com/privkey.pem',
+    'utf8'
+  );
+  const cert = fs.readFileSync(
+    '/etc/letsencrypt/live/booking-tours-dev2.us-east-1.elasticbeanstalk.com/fullchain.pem',
+    'utf8'
+  );
+
+  https.createServer({ key, cert }, app.listen(PORT, listener));
+} else {
+  const server = app.listen(PORT, listener);
+}
 
 process.on('unhandledRejection', (err) => {
   console.log(err.name, err.message);

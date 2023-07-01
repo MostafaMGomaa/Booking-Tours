@@ -76,9 +76,10 @@ module.exports = class Email {
 
   sendWelcomeProd() {
     return this.sendEmailProd(
-      'Welcome',
       'Welcome to our Family!',
-      '<h1>Booking Flights</h1>'
+      'Welcome to our Family!',
+      `<h1>Booking Tours</h1>
+      <p>Welcome to our Family!</p>`
     );
   }
   sendPasswordResetProd() {
