@@ -47,7 +47,7 @@ const listener = () => async () => {
 
 // }
 
-const server = app.listen(PORT, listener);
+app.listen(PORT, listener);
 
 process.on('unhandledRejection', (err) => {
   console.log(err.name, err.message);

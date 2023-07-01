@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const router = require('express').Router({ mergeParams: true });
 
 const {
   signup,
@@ -43,10 +43,10 @@ router.patch('/updateMyPassword', updatePassword);
 
 router.route('/').get(restrictTo('admin'), getAllUsers);
 
-router.use(restrictTo('user'));
-
 router.route('/me').get(getMe, getUser).delete(deleteMe);
+
 router.route('/:id').get(getUser);
+
 router.patch('/updateUserData', updateUserData);
 
 module.exports = router;

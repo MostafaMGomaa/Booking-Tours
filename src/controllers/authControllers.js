@@ -19,9 +19,9 @@ const createSendToken = (user, statusCode, res) => {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ),
-    httpOnly: true,
-    sameSite: 'none',
-    secure: true,
+    // httpOnly: true,
+    // sameSite: 'none',
+    // secure: true,
   };
 
   res.cookie('jwt', token, cookieOptions);
@@ -70,6 +70,7 @@ exports.login = catchAsync(async (req, res, next) => {
 });
 
 exports.updatePassword = catchAsync(async (req, res, next) => {
+  console.log('HI');
   // 1) Get User from collection.
   const user = await User.findById(req.user.id).select('+password');
 
