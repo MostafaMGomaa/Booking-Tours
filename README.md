@@ -59,7 +59,7 @@ The application is deployed using the following methods:
 
 - Amazon Web Services (AWS) Elastic Beanstalk (EB):
 
-  - The application is currently deployed on AWS EB and can be accessed at [AWS EB Deployment Link](http://booking-tours-dev.us-east-1.elasticbeanstalk.com/). Please note that the EB environment will be deleted after 9/7/2023.
+  - The application is currently deployed on AWS EB and can be accessed at [AWS EB Deployment Link](http://booking-tours-dev22.us-east-1.elasticbeanstalk.com/). Please note that the EB environment will be deleted after 9/7/2023.
 
 - Render:
   - An alternative deployment option is available using Render, and the application can be accessed at [Render Deployment Link](https://booking-flights-web-application.onrender.com/).
