@@ -12,14 +12,14 @@ The app suggest bus trips to user based on user current location and his destina
 
 User can book cars or other vehicles based on his prefers
 
-## Company registration
+## Company registration [Upcoming feature]
 
 Companies can registration and make their trips avaliable to users to booking
 
-## Hot offers
+## Hot offers [Upcoming feature]
 
 We can provide for our subscribers special offers from our compaines
 
-## Point system
+## Point system [Upcoming feature]
 
 Every time user use our app to order trip ,he got point and this point can make discount for trips
