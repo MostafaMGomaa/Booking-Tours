@@ -19,7 +19,7 @@ const ticketSchema = mongoose.Schema(
       default: 1,
     },
     paid: {
-      type: boolean,
+      type: Boolean,
       defualt: false,
     },
     createdAt: {

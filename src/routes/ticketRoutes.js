@@ -9,7 +9,10 @@ const {
   deleteAllTickets,
 } = require('../controllers/ticketControllers');
 
-const { getCheckoutSession } = require('./../controllers/checkoutController');
+const {
+  getCheckoutSession,
+  createBookingCheckout,
+} = require('./../controllers/checkoutController');
 
 const { protect } = require('../controllers/authControllers');
 
@@ -25,5 +28,6 @@ router
   .delete(deleteOneTicket);
 
 router.post('/checkout-session/:ticketId', getCheckoutSession);
+router.post('/checkout-session/createBookingCheckout', createBookingCheckout);
 
 module.exports = router;
