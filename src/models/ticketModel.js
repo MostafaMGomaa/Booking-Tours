@@ -22,6 +22,10 @@ const ticketSchema = mongoose.Schema(
       type: boolean,
       defualt: false,
     },
+    createdAt: {
+      type: Date,
+      default: Date.now(),
+    },
   },
   {
     toJSON: { virtuals: true },
