@@ -2,6 +2,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECERT_KEY);
 const Ticket = require('../models/ticketModel');
 const Tour = require('../models/tourModel');
 const catchAsync = require('../utils/catchAsync');
+const Email = require('../utils/email');
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   // 1) Get user's ticket by id.
@@ -58,7 +59,7 @@ exports.createBookingCheckout = catchAsync(async (req, res, next) => {
   if (currentTour.availableTicket === 0)
     return next(new AppError('Sorry no enough tickets available', 400));
 
-  // --available tickets
+  // --There arr available tickets?
   if (currentTour.availableTicket < numOfTickets)
     return next(
       new AppError('Sorry, Available tickets less than you want.', 400)
@@ -68,7 +69,9 @@ exports.createBookingCheckout = catchAsync(async (req, res, next) => {
   await currentTour.save();
 
   // Create ticket .
-  const ticket = await Ticket.create({ user, tour, numOfTickets });
+  const ticket = await Ticket.create({ user, tour, numOfTickets, paid: true });
+
+  new Email(req.user, ``).sendBooingConfirmation(ticket);
 
   res.status(201).json({
     status: 'success',

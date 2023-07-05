@@ -82,11 +82,31 @@ module.exports = class Email {
       <p>Welcome to our Family!</p>`
     );
   }
+
   sendPasswordResetProd() {
     this.sendEmailProd(
       'Your password reset token (valid for only 10 minutes)',
       `Submit PATCH request to ${this.url} if you forget your password \nOherwise forget about this email.`,
-      `<h1>Your token is ${this.url}</h1>`
+      `<h3>Submit PATCH request to ${this.url} if you forget your password \nOherwise forget about this email</h3>
+      <h1>Your token is ${this.url}</h1>`
+    );
+  }
+
+  sendBooingConfirmation(ticket) {
+    this.sendEmailProd(
+      `Booking Confirmation - Your Amazing Adventure Awaits!`,
+      `Submit PATCH request to ${this.url} if you forget your password \nOherwise forget about this email.`,
+      `<h1>Please visit your personal page in our application</h1>
+      <p>
+      Thank you for choosing Booking Tours for your upcoming adventure! We are excited to confirm your booking and provide you with all the necessary details for your tour. Get ready for an unforgettable experience!
+      Booking Details:
+      Tour: ${ticket.tour.name}
+      Date: ${ticket.tour.startDate}
+      Number of Guests: ${ticket.numOfTickets}
+      Seat Number: ${ticket.seatNum}
+      </p>
+      <a href="">Visit your personal page</a>
+      `
     );
   }
 };
