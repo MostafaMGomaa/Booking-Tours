@@ -76,6 +76,8 @@ the Service
 | Tour | TourID|
 | User | UserID |
 | SeatNum | Num |
+| Paid | Boolean |
+| createdAt | Date |
 
 ## Server
 

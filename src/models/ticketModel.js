@@ -18,6 +18,10 @@ const ticketSchema = mongoose.Schema(
       type: Number,
       default: 1,
     },
+    paid: {
+      type: boolean,
+      defualt: false,
+    },
   },
   {
     toJSON: { virtuals: true },
