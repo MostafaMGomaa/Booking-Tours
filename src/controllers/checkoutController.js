@@ -6,30 +6,33 @@ const Email = require('../utils/email');
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   // 1) Get user's ticket by id.
-  const ticketId = req.params.ticketId;
-  const ticket = await Ticket.findById(ticketId);
-
-  const tour = await Tour.findById(ticket.tour.id);
+  const ticket = await Ticket.findById(req.params.ticketId);
 
   // 2) Create checkout session.
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
     success_url: `${req.protocol}://${req.get('host')}/?tour=${
-      req.params.tourId
-    }&user=${req.user.id}&price=${tour.price}&numOfTickets=${
+      ticket.tour.id
+    }&user=${req.user.id}&price=${ticket.tour.price}&numOfTickets=${
       ticket.numOfTickets
     }`,
-    cancel_url: `${req.protocol}://${req.get('host')}/tours/`,
+    cancel_url: `${req.protocol}://${req.get('host')}/api/v1/tours/`,
     customer_email: req.user.email,
     client_reference_id: req.params.ticketId,
     line_items: [
       {
         price_data: {
           currency: 'usd',
-          unit_amount: ticket.tour.price - ticket.tour.priceDiscount,
+          unit_amount: (ticket.tour.price - ticket.tour.priceDiscount) * 100,
           product_data: {
             name: `${ticket.tour.name} Tour`,
             description: ticket.tour.description,
+            images: [
+              // Add the URLs of the images here
+              `https://mostafa-dev-gp.s3.amazonaws.com/citites/${
+                Math.floor(Math.random() * 13) + 1
+              }.jpg`,
+            ],
           },
         },
         quantity: ticket.numOfTickets,
@@ -38,17 +41,19 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     mode: 'payment',
   });
 
+  res.redirect(200, session.url);
+
   // 3) Create a session as response
-  res.status(200).json({
-    status: 'success',
-    session,
-  });
+  // res.status(200).json({
+  //   status: 'success',
+  //   session,
+  // });
 });
 
 exports.createBookingCheckout = catchAsync(async (req, res, next) => {
-  const { tour, user, price, numOfTickets } = req.query;
+  let { tour, user, numOfTickets } = req.query;
 
-  if (!tour && !user && !price) return next();
+  if (!tour && !user) return next();
 
   if (!numOfTickets) numOfTickets = 1;
 

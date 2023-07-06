@@ -27,7 +27,7 @@ router
   .patch(updateOneTicket)
   .delete(deleteOneTicket);
 
-router.post('/checkout-session/:ticketId', getCheckoutSession);
+router.get('/checkout-session/:ticketId', getCheckoutSession);
 router.post('/checkout-session/createBookingCheckout', createBookingCheckout);
 
 module.exports = router;

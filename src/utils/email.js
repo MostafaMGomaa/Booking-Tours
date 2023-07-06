@@ -95,15 +95,16 @@ module.exports = class Email {
   sendBooingConfirmation(ticket) {
     this.sendEmailProd(
       `Booking Confirmation - Your Amazing Adventure Awaits!`,
-      `Submit PATCH request to ${this.url} if you forget your password \nOherwise forget about this email.`,
-      `<h1>Please visit your personal page in our application</h1>
+      ``,
+      `<h1>Booking Confirmation to ${ticket.tour.name} Tour</h1>
       <p>
-      Thank you for choosing Booking Tours for your upcoming adventure! We are excited to confirm your booking and provide you with all the necessary details for your tour. Get ready for an unforgettable experience!
-      Booking Details:
-      Tour: ${ticket.tour.name}
-      Date: ${ticket.tour.startDate}
-      Number of Guests: ${ticket.numOfTickets}
-      Seat Number: ${ticket.seatNum}
+      Thank you for choosing Booking Tours for your upcoming adventure!<br> We are excited to confirm your booking and provide you with all the necessary details for your tour. Get ready for an unforgettable experience!
+      Booking Details:<br>
+      Tour: ${ticket.tour.name}<br>
+      Date: ${ticket.tour.startDate} <br>
+      Number of Guests: ${ticket.numOfTickets}<br>
+      Seat Number: ${ticket.seatNum}<br>
+      Ticket ID: ${ticket._id}
       </p>
       <a href="">Visit your personal page</a>
       `

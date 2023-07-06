@@ -1,7 +1,6 @@
 const catchAsync = require('../utils/catchAsync');
 const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
-const { Model } = require('mongoose');
 
 exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
