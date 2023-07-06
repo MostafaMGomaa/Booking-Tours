@@ -98,13 +98,14 @@ module.exports = class Email {
       ``,
       `<h1>Booking Confirmation to ${ticket.tour.name} Tour</h1>
       <p>
-      Thank you for choosing Booking Tours for your upcoming adventure!<br> We are excited to confirm your booking and provide you with all the necessary details for your tour. Get ready for an unforgettable experience!
+      Thank you for choosing Booking Tours for your upcoming adventure!<br> We are excited to confirm your booking and provide you with all the necessary details for your tour.<br>
+      Get ready for an unforgettable experience!
       Booking Details:<br>
       Tour: ${ticket.tour.name}<br>
-      Date: ${ticket.tour.startDate} <br>
+      Date: ${ticket.tour.takeOff} <br>
       Number of Guests: ${ticket.numOfTickets}<br>
       Seat Number: ${ticket.seatNum}<br>
-      Ticket ID: ${ticket._id}
+      <h3>Ticket ID: ${ticket._id}</h3>
       </p>
       <a href="">Visit your personal page</a>
       `

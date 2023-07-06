@@ -8,18 +8,17 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   let { tour, numOfTickets } = req.query;
   const user = req.user;
 
-  const existingBooking = await Ticket.findOne({
-    user,
-    tour,
-  });
+  // const existingBooking = await Ticket.findOne({
+  //   user,
+  //   tour,
+  // });
 
-  console.log(existingBooking);
-  if (existingBooking) {
-    // User has already booked the tour, handle the error or display a message
-    return res
-      .status(400)
-      .json({ message: 'You have already booked this tour.' });
-  }
+  // if (existingBooking) {
+  //   // User has already booked the tour, handle the error or display a message
+  //   return res
+  //     .status(400)
+  //     .json({ message: 'You have already booked this tour.' });
+  // }
 
   if (!tour) return next();
   if (!numOfTickets) numOfTickets = 1;
@@ -43,8 +42,6 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   // Create ticket .
 
   const ticket = await Ticket.create({ user, tour, numOfTickets, paid: true });
-
-  new Email(req.user, ``).sendBooingConfirmation(ticket);
 
   // 2) Create checkout session.
   const session = await stripe.checkout.sessions.create({
@@ -79,6 +76,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     mode: 'payment',
   });
 
+  new Email(req.user, ``).sendBooingConfirmation(ticket);
   // 3) Create a session as response
   res.status(200).json({
     status: 'success',
