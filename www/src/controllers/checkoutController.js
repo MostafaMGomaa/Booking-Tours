@@ -8,8 +8,20 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   let { tour, numOfTickets } = req.query;
   const user = req.user;
 
-  if (!tour) return next();
+  const existingBooking = await Ticket.findOne({
+    user,
+    tour,
+  });
 
+  console.log(existingBooking);
+  if (existingBooking) {
+    // User has already booked the tour, handle the error or display a message
+    return res
+      .status(400)
+      .json({ message: 'You have already booked this tour.' });
+  }
+
+  if (!tour) return next();
   if (!numOfTickets) numOfTickets = 1;
 
   // Get tour.
@@ -29,6 +41,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   await currentTour.save();
 
   // Create ticket .
+
   const ticket = await Ticket.create({ user, tour, numOfTickets, paid: true });
 
   new Email(req.user, ``).sendBooingConfirmation(ticket);

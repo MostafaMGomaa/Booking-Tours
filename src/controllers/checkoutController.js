@@ -13,7 +13,6 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     tour,
   });
 
-  console.log(existingBooking);
   if (existingBooking) {
     // User has already booked the tour, handle the error or display a message
     return res
