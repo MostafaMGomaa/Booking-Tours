@@ -5,48 +5,10 @@ const catchAsync = require('../utils/catchAsync');
 const Email = require('../utils/email');
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
-  // 1) Get user's ticket by id.
-  const ticket = await Ticket.findById(req.params.ticketId);
+  let { tour, numOfTickets } = req.query;
+  const user = req.user;
 
-  // 2) Create checkout session.
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
-    success_url: `${req.protocol}://${req.get('host')}/?tour=${
-      ticket.tour.id
-    }&user=${req.user.id}&price=${ticket.tour.price}&numOfTickets=${
-      ticket.numOfTickets
-    }`,
-    cancel_url: `${req.protocol}://${req.get('host')}/tours/`,
-    customer_email: req.user.email,
-    client_reference_id: req.params.ticketId,
-    line_items: [
-      {
-        price_data: {
-          currency: 'usd',
-          unit_amount: (ticket.tour.price - ticket.tour.priceDiscount) * 100,
-          product_data: {
-            name: `${ticket.tour.name} Tour`,
-            description: ticket.tour.description,
-          },
-        },
-        quantity: ticket.numOfTickets,
-      },
-    ],
-    mode: 'payment',
-  });
-
-  res.redirect(200, session.url);
-  // 3) Create a session as response
-  // res.status(200).json({
-  //   status: 'success',
-  //   session,
-  // });
-});
-
-exports.createBookingCheckout = catchAsync(async (req, res, next) => {
-  let { tour, user, numOfTickets } = req.query;
-
-  if (!tour && !user) return next();
+  if (!tour) return next();
 
   if (!numOfTickets) numOfTickets = 1;
 
@@ -71,8 +33,42 @@ exports.createBookingCheckout = catchAsync(async (req, res, next) => {
 
   new Email(req.user, ``).sendBooingConfirmation(ticket);
 
-  res.status(201).json({
+  // 2) Create checkout session.
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ['card'],
+    success_url: `${req.protocol}://${req.get('host')}/?tour=${
+      ticket.tour.id
+    }&user=${req.user.id}&price=${ticket.tour.price}&numOfTickets=${
+      ticket.numOfTickets
+    }`,
+    cancel_url: `${req.protocol}://${req.get('host')}/api/v1/tours/`,
+    customer_email: req.user.email,
+    client_reference_id: req.params.ticketId,
+    line_items: [
+      {
+        price_data: {
+          currency: 'usd',
+          unit_amount: (ticket.tour.price - ticket.tour.priceDiscount) * 10,
+          product_data: {
+            name: `${ticket.tour.name} Tour`,
+            description: ticket.tour.description,
+            images: [
+              // Add the URLs of the images here
+              `https://mostafa-dev-gp.s3.amazonaws.com/citites/${
+                Math.floor(Math.random() * 13) + 1
+              }.jpg`,
+            ],
+          },
+        },
+        quantity: ticket.numOfTickets,
+      },
+    ],
+    mode: 'payment',
+  });
+
+  // 3) Create a session as response
+  res.status(200).json({
     status: 'success',
-    data: { ticket },
+    url: session.url,
   });
 });
