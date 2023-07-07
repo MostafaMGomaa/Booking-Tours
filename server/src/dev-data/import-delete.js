@@ -6,19 +6,19 @@ const dotenv = require('dotenv');
 const random_date = require('random-date-generator');
 const fs = require('fs');
 
-// const Tour = require('../models/tourModel');
-// dotenv.config({ path: `${__dirname}/../.env` });
-// let DB = '';
-// if (process.env.LOCAL) {
-//   DB = process.env.DATABASE_LOCAL;
-// } else {
-//   DB = process.env.DATABASE.replace(
-//     '<password>',
-//     process.env.DATABASE_PASSWORD
-//   );
-// }
-// mongoose.set('strictQuery', false);
-// mongoose.connect(DB).then(() => console.log('Connected Successfully'));
+const Tour = require('../models/tourModel');
+dotenv.config({ path: `${__dirname}/../.env` });
+let DB = '';
+if (process.env.LOCAL) {
+  DB = process.env.DATABASE_LOCAL;
+} else {
+  DB = process.env.DATABASE.replace(
+    '<password>',
+    process.env.DATABASE_PASSWORD
+  );
+}
+mongoose.set('strictQuery', false);
+mongoose.connect(DB).then(() => console.log('Connected Successfully'));
 
 /***
  * return random date using random-date-generator package
