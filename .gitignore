@@ -109,3 +109,5 @@ dev-data/
 
 # test some tips
 test.js
+.elasticbeanstalk/
+/cert
