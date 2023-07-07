@@ -81,6 +81,8 @@ the Service
 | Type | String |
 | Baggage | Number |
 | Class | String |
+| startLocation | Object {Geo location} |
+| endLocation | Object {Geo location} |
 
 **User**:
 | Attribute | Type |
@@ -99,20 +101,21 @@ the Service
 **Reviews**:
 | Attribute | Type |
 |---------- |----- |
-|Review| String|
-|Rating| Number|
-|CreatedAt| Date |
-|Tour|TourID|
-|User|UserObject |
+| Review | String|
+| Rating | Number|
+| CreatedAt | Date |
+| Tour | TourID|
+| User | UserID |
 
 **Ticket**:
 | Attribute | Type |
 |---------- |----- |
-| Tour | TourID|
+| Tour | TourID |
 | User | UserID |
 | SeatNum | Num |
 | Paid | Boolean |
 | createdAt | Date |
+| numOfTickets | Number |
 
 # API
 

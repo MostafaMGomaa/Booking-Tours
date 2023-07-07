@@ -33,14 +33,6 @@ const ticketSchema = mongoose.Schema(
   }
 );
 
-// ticketSchema.pre(/^find/, function (next) {
-//   this.populate({
-//     path: 'user',
-//     select: 'name photo',
-//   });
-//   next();
-// });
-
 ticketSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'tour',
