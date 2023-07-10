@@ -96,7 +96,6 @@ const egypt_airports = [
   },
 ];
 
-<<<<<<< HEAD:server/src/dev-data/import-delete.js
 const getRandomAirport = () => {
   const randomIndex = Math.floor(Math.random() * egypt_airports.length);
   return egypt_airports[randomIndex];
@@ -116,8 +115,6 @@ const travelAgencies = {
     weBus: 'https://mostafa-dev-gp.s3.amazonaws.com/agency/bus/weBus',
   },
 };
-=======
->>>>>>> v1:src/dev-data/import-delete.js
 /***
  * COUNTERIES THAT OUR PROJECT SUPPORT
  * ADD MORE COUNTRIES IF NEEDED
@@ -233,11 +230,6 @@ const randomDate = () => {
   return random_date.getRandomDateInRange(startDate, endDate);
 };
 
-const getRandomAirport = () => {
-  const randomIndex = Math.floor(Math.random() * egypt_airports.length);
-  return egypt_airports[randomIndex];
-};
-
 /***
  * READ THE FILE
  * THEN FILTER THE FILE TO GET THE ONLY THE AIRPORTS AND THE SUPPORTED COUNTRIES
@@ -327,16 +319,12 @@ const generatePlanTours = (data) => {
     const classType = ['first', 'business', 'comfort'][
       Math.floor(Math.random() * 3)
     ];
-<<<<<<< HEAD:server/src/dev-data/import-delete.js
     const travelAgency = ['airArabia', 'airCairo', 'flyEgypt', 'nileAir'][
       Math.floor(Math.random() * 4)
     ];
     const agancyPhoto = travelAgencies['flight'][travelAgency];
     const startLocation = from.location;
     const endLocation = to.location;
-=======
-
->>>>>>> v1:src/dev-data/import-delete.js
     const price = Math.trunc(Math.random() * 500) + 500;
 
     const planTour = getTour(
@@ -361,7 +349,6 @@ const generatePlanTours = (data) => {
 
 const generateBusTours = () => {
   const tours = [];
-<<<<<<< HEAD:server/src/dev-data/import-delete.js
   const stations = [
     {
       city: 'Alexandria',
@@ -662,9 +649,6 @@ const generateBusTours = () => {
       ],
     },
   ];
-=======
-
->>>>>>> v1:src/dev-data/import-delete.js
   for (let i = 0; i < stations.length; i++) {
     for (let j = 0; j < destinations.length; j++) {
       const tourType = 'return';

@@ -2,7 +2,3 @@ EgyptAir:
   - https://www.alaraby.com/news/%D8%A3%D8%B3%D8%A8%D8%A7%D8%A8-%D8%B9%D8%AF%D8%A9-%D9%84%D9%85%D8%A7%D8%B0%D8%A7-%D8%AA%D9%83%D8%A8%D8%AF%D8%AA-%D8%B4%D8%B1%D9%83%D8%A9-%D9%85%D8%B5%D8%B1-%D9%84%D9%84%D8%B7%D9%8A%D8%B1%D8%A7%D9%86-%D8%AE%D8%B3%D8%A7%D8%A6%D8%B1-%D8%A8%D9%85%D9%84%D9%8A%D8%A7%D8%B1-%D8%AF%D9%88%D9%84%D8%A7%D8%B1
   - https://twitter.com/nagwaegypt1234/status/1674448720937484290
 List of flightAgency: -https://eg.wego.com/en/airlines
-
-agency:
-  flight: [airArabia, airCairo, flyEgypt, nileAir]
-  bus: ['goBus', 'superJet', 'weBus']
