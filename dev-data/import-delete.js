@@ -6,9 +6,9 @@ const dotenv = require('dotenv');
 const random_date = require('random-date-generator');
 const fs = require('fs');
 
-const Tour = require('../models/tourModel');
+const Tour = require('../src/models/tourModel');
 
-dotenv.config({ path: `${__dirname}/../.env` });
+dotenv.config({ path: `${__dirname}/../src/.env` });
 
 // Connect to DB
 let DB = '';
