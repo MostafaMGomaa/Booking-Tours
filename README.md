@@ -81,8 +81,8 @@ the Service
 | Type | String |
 | Baggage | Number |
 | Class | String |
-| startLocation | Object {Geo location} |
-| endLocation | Object {Geo location} |
+| startLocation | Number [Geo location] |
+| endLocation | Number [Geo location] |
 
 **User**:
 | Attribute | Type |

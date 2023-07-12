@@ -115,27 +115,8 @@ const tourSchema = new mongoose.Schema(
         message: 'Tour could be first , business, economy class or ',
       },
     },
-
-    startLocation: {
-      type: {
-        type: String,
-        default: 'Point',
-        enum: ['Point'],
-      },
-      coordinates: [Number],
-      address: String,
-      description: String,
-    },
-    endLocation: {
-      type: {
-        type: String,
-        default: 'Point',
-        enum: ['Point'],
-      },
-      coordinates: [Number],
-      address: String,
-      description: String,
-    },
+    startLocation: [Number],
+    endLocation: [Number],
   },
 
   {
